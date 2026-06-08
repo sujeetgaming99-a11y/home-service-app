@@ -12,8 +12,13 @@ const adminTicketDetailPanel = document.querySelector("#adminTicketDetailPanel")
 const adminTicketDetailContent = document.querySelector("#adminTicketDetailContent");
 const closeAdminTicketDetail = document.querySelector("#closeAdminTicketDetail");
 const workerForm = document.querySelector("#workerForm");
+const editingWorkerId = document.querySelector("#editingWorkerId");
+const workerSubmitButton = document.querySelector("#workerSubmitButton");
+const cancelWorkerEdit = document.querySelector("#cancelWorkerEdit");
 const workerStatus = document.querySelector("#workerStatus");
 const workerList = document.querySelector("#workerList");
+const serviceUploadsList = document.querySelector("#serviceUploadsList");
+const toggleServiceUploads = document.querySelector("#toggleServiceUploads");
 
 const workerFields = {
   name: document.querySelector("#workerName"),
@@ -24,13 +29,18 @@ const workerFields = {
   price: document.querySelector("#workerPrice"),
 };
 
-const bookingStatuses = ["Pending", "Confirmed", "Worker Assigned", "Worker On The Way", "Completed", "Cancelled"];
+const bookingStatuses = ["Pending", "Worker Accepted", "On The Way", "Work Started", "Completed", "Confirmed", "Worker Assigned", "Worker On The Way", "Cancelled"];
 const supportStatuses = ["Open", "In Progress", "Resolved"];
 
 const defaultWorkers = [
   { id: "worker-plumber", name: "Rahul Sharma", service: "Plumber", phone: "+911234567890", experience: "8 years", rating: 4.9, price: 299 },
   { id: "worker-electrician", name: "Amit Verma", service: "Electrician", phone: "+911234567891", experience: "6 years", rating: 4.8, price: 299 },
+  { id: "worker-carpenter", name: "Karan Mehta", service: "Carpenter", phone: "+911234567892", experience: "7 years", rating: 4.7, price: 399 },
+  { id: "worker-painter", name: "Neha Singh", service: "Painter", phone: "+911234567893", experience: "5 years", rating: 4.8, price: 999 },
+  { id: "worker-ac", name: "Sameer Khan", service: "AC Repair", phone: "+911234567894", experience: "9 years", rating: 4.9, price: 499 },
   { id: "worker-cleaning", name: "Priya Nair", service: "Cleaning", phone: "+911234567895", experience: "4 years", rating: 4.9, price: 399 },
+  { id: "worker-appliance", name: "Arjun Rao", service: "Appliance Repair", phone: "+911234567896", experience: "6 years", rating: 4.8, price: 499 },
+  { id: "worker-maintenance", name: "Meera Iyer", service: "Home Maintenance", phone: "+911234567897", experience: "10 years", rating: 4.9, price: 599 },
 ];
 
 function formatPrice(value) {
@@ -45,6 +55,8 @@ const servicePrices = {
   Painter: 999,
   "AC Repair": 499,
   Cleaning: 399,
+  "Appliance Repair": 499,
+  "Home Maintenance": 599,
 };
 
 function normalizeBookingPrice(booking) {
@@ -55,6 +67,30 @@ function normalizeBookingPrice(booking) {
 function normalizeWorkerPrice(worker) {
   const amount = Number(worker.price) || 0;
   return amount < 100 ? servicePrices[worker.service] || amount : amount;
+}
+
+const defaultWorkerImages = {
+  "Rahul Sharma": "assets/worker-rahul.svg",
+  "Amit Verma": "assets/worker-amit.svg",
+  "Karan Mehta": "assets/worker-karan.svg",
+  "Neha Singh": "assets/worker-neha.svg",
+  "Sameer Khan": "assets/worker-sameer.svg",
+  "Priya Nair": "assets/worker-priya.svg",
+  "Arjun Rao": "assets/worker-arjun.svg",
+  "Meera Iyer": "assets/worker-meera.svg",
+};
+
+function getWorkerImages() {
+  return JSON.parse(localStorage.getItem("homefixWorkerImages") || "{}");
+}
+
+function setWorkerImages(images) {
+  localStorage.setItem("homefixWorkerImages", JSON.stringify(images));
+}
+
+function getWorkerImage(worker) {
+  const uploadedImages = getWorkerImages();
+  return uploadedImages[worker.name] || worker.image || worker.imageUrl || defaultWorkerImages[worker.name] || "assets/worker-default.svg";
 }
 
 function showToast(message, type = "success") {
@@ -88,6 +124,23 @@ function setBookings(bookings) {
   localStorage.setItem("homefixBookings", JSON.stringify(bookings));
 }
 
+function getAssignedWorkerName(booking) {
+  if (typeof booking.assignedWorker === "string") {
+    return booking.assignedWorker || "Not assigned";
+  }
+
+  return booking.assignedWorker?.name || "Not assigned";
+}
+
+function getAssignedWorkerId(booking) {
+  if (typeof booking.assignedWorker === "object" && booking.assignedWorker?.id) {
+    return booking.assignedWorker.id;
+  }
+
+  const workerName = getAssignedWorkerName(booking);
+  return getWorkers().find((worker) => worker.name === workerName)?.id || "";
+}
+
 function getPayments() {
   return JSON.parse(localStorage.getItem("homefixPayments") || "[]");
 }
@@ -117,7 +170,16 @@ function getWorkers() {
   const saved = localStorage.getItem("homefixWorkers");
 
   if (saved) {
-    return JSON.parse(saved);
+    let workers = JSON.parse(saved);
+    const existingServices = new Set(workers.map((worker) => worker.service || worker.skill));
+    const missingDefaults = defaultWorkers.filter((worker) => !existingServices.has(worker.service));
+
+    if (missingDefaults.length) {
+      workers = [...workers, ...missingDefaults];
+      localStorage.setItem("homefixWorkers", JSON.stringify(workers));
+    }
+
+    return workers;
   }
 
   localStorage.setItem("homefixWorkers", JSON.stringify(defaultWorkers));
@@ -126,6 +188,43 @@ function getWorkers() {
 
 function setWorkers(workers) {
   localStorage.setItem("homefixWorkers", JSON.stringify(workers));
+}
+
+function getServiceImages() {
+  return JSON.parse(localStorage.getItem("homefixServiceImages") || "{}");
+}
+
+function getServiceImageSrc(entry) {
+  return typeof entry === "string" ? entry : entry?.image;
+}
+
+function getCurrentUploaderName() {
+  const savedProfile = JSON.parse(localStorage.getItem("homefixUserProfile") || "null");
+
+  if (savedProfile?.name) {
+    return savedProfile.name;
+  }
+
+  const users = JSON.parse(localStorage.getItem("homefixUsers") || "[]");
+  const latestUser = users[users.length - 1];
+
+  return latestUser?.name || latestUser?.email || "HomeFix User";
+}
+
+function getServiceUploadMeta(entry) {
+  const fallbackUploader = getCurrentUploaderName();
+
+  if (typeof entry === "string") {
+    return {
+      uploadedBy: fallbackUploader,
+      uploadedAt: "",
+    };
+  }
+
+  return {
+    uploadedBy: entry?.uploadedBy || fallbackUploader,
+    uploadedAt: entry?.uploadedAt || "",
+  };
 }
 
 function formatDateTime(value) {
@@ -177,7 +276,7 @@ function getUserCount() {
 
 function normalizeAdminStatus(status) {
   if (!status || status === "Booking Confirmed") {
-    return "Confirmed";
+    return "Pending";
   }
 
   if (status === "Service Completed") {
@@ -204,11 +303,11 @@ function renderStats() {
 }
 
 function renderBookings() {
-  const bookings = getBookings().slice().reverse().slice(0, 8);
+  const bookings = getBookings().slice().reverse();
   const workers = getWorkers();
 
   if (!bookings.length) {
-    recentBookings.innerHTML = '<tr><td colspan="8">No bookings found.</td></tr>';
+    recentBookings.innerHTML = '<tr><td colspan="9">No bookings found.</td></tr>';
     return;
   }
 
@@ -221,7 +320,7 @@ function renderBookings() {
       const workerOptions = workers
         .filter((worker) => !booking.service || worker.service === booking.service || worker.skill === booking.service)
         .map((worker) => {
-          const selected = booking.assignedWorker?.id === worker.id || booking.assignedWorker?.name === worker.name;
+          const selected = getAssignedWorkerId(booking) === worker.id || getAssignedWorkerName(booking) === worker.name;
           return `<option value="${escapeHtml(worker.id)}" ${selected ? "selected" : ""}>${escapeHtml(worker.name)}</option>`;
         })
         .join("");
@@ -239,6 +338,8 @@ function renderBookings() {
               ${workerOptions}
             </select>
           </td>
+          <td>${escapeHtml(getAssignedWorkerName(booking))}</td>
+          <td>${escapeHtml(booking.workerResponse || "Waiting")}</td>
           <td>${escapeHtml(booking.paymentStatus || "Pending")}</td>
           <td>
             <select data-booking-status="${escapeHtml(booking.id)}">
@@ -364,6 +465,57 @@ function openAdminTicket(ticketId) {
   adminTicketDetailPanel.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
+function renderServiceUploads() {
+  if (!serviceUploadsList) {
+    return;
+  }
+
+  const uploads = Object.entries(getServiceImages()).filter(([, entry]) => getServiceImageSrc(entry));
+
+  if (toggleServiceUploads) {
+    toggleServiceUploads.textContent = `Show Photos (${uploads.length})`;
+  }
+
+  if (!uploads.length) {
+    serviceUploadsList.innerHTML = '<p class="empty-state">No uploaded service photos found.</p>';
+    return;
+  }
+
+  serviceUploadsList.innerHTML = uploads
+    .map(([service, entry]) => {
+      const imageSrc = getServiceImageSrc(entry);
+      const meta = getServiceUploadMeta(entry);
+
+      return `
+        <article class="service-upload-card">
+          <img src="${escapeHtml(imageSrc)}" alt="${escapeHtml(service)} uploaded service photo" />
+          <div class="service-upload-content">
+            <span class="service-upload-label">Service</span>
+            <h3>${escapeHtml(service)}</h3>
+            <p><strong>Uploaded by:</strong> ${escapeHtml(meta.uploadedBy)}</p>
+            <p><strong>Uploaded at:</strong> ${escapeHtml(formatDateTime(meta.uploadedAt))}</p>
+            <p class="service-upload-note">Saved in localStorage</p>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function setupServiceUploadsToggle() {
+  if (!toggleServiceUploads || !serviceUploadsList) {
+    return;
+  }
+
+  toggleServiceUploads.addEventListener("click", () => {
+    const isOpen = serviceUploadsList.classList.toggle("is-hidden") === false;
+    toggleServiceUploads.setAttribute("aria-expanded", String(isOpen));
+    toggleServiceUploads.textContent = isOpen
+      ? "Hide Photos"
+      : `Show Photos (${Object.entries(getServiceImages()).filter(([, entry]) => getServiceImageSrc(entry)).length})`;
+  });
+}
+
 function renderWorkers() {
   const workers = getWorkers();
 
@@ -377,18 +529,77 @@ function renderWorkers() {
     .map(
       (worker) => `
         <article class="worker-card">
+          <img class="admin-worker-photo" src="${escapeHtml(getWorkerImage(worker))}" alt="${escapeHtml(worker.name)} profile photo" />
           <div>
             <h3>${escapeHtml(worker.name)}</h3>
             <p>${escapeHtml(worker.service)} - ${escapeHtml(worker.experience)}</p>
             <p>${escapeHtml(worker.phone)} - Rating ${escapeHtml(worker.rating)}/5 - ${escapeHtml(formatPrice(normalizeWorkerPrice(worker)))}</p>
           </div>
-          <button class="delete-worker" type="button" data-delete-worker="${escapeHtml(worker.id)}">Delete</button>
+          <div class="worker-card-actions">
+            <button class="edit-worker" type="button" data-edit-worker="${escapeHtml(worker.id)}">Edit</button>
+            <label class="upload-worker-dp" for="dp-${escapeHtml(worker.id)}">Upload DP</label>
+            <input id="dp-${escapeHtml(worker.id)}" type="file" accept="image/*" data-worker-dp="${escapeHtml(worker.id)}" />
+            <button class="delete-worker" type="button" data-delete-worker="${escapeHtml(worker.id)}">Delete</button>
+          </div>
         </article>
       `
     )
     .join("");
 
   renderStats();
+}
+
+function resetWorkerForm() {
+  workerForm.reset();
+  editingWorkerId.value = "";
+  workerSubmitButton.textContent = "Add Worker";
+  cancelWorkerEdit.classList.add("is-hidden");
+}
+
+function startWorkerEdit(workerId) {
+  const worker = getWorkers().find((item) => item.id === workerId);
+
+  if (!worker) {
+    showToast("Worker not found.", "error");
+    return;
+  }
+
+  editingWorkerId.value = worker.id;
+  workerFields.name.value = worker.name || "";
+  workerFields.service.value = worker.service || worker.skill || "";
+  workerFields.phone.value = worker.phone || "";
+  workerFields.experience.value = worker.experience || "";
+  workerFields.rating.value = worker.rating || "";
+  workerFields.price.value = normalizeWorkerPrice(worker) || "";
+  workerSubmitButton.textContent = "Update Worker";
+  cancelWorkerEdit.classList.remove("is-hidden");
+  workerStatus.textContent = `Editing ${worker.name}`;
+  workerForm.scrollIntoView({ behavior: "smooth", block: "center" });
+  workerFields.name.focus();
+}
+
+function updateWorkerDp(workerId, file) {
+  if (!file || !file.type.startsWith("image/")) {
+    showToast("Please upload a valid image file.", "error");
+    return;
+  }
+
+  const worker = getWorkers().find((item) => item.id === workerId);
+
+  if (!worker) {
+    showToast("Worker not found.", "error");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.addEventListener("load", () => {
+    const images = getWorkerImages();
+    images[worker.name] = reader.result;
+    setWorkerImages(images);
+    renderWorkers();
+    showToast("Worker DP updated.");
+  });
+  reader.readAsDataURL(file);
 }
 
 recentBookings.addEventListener("change", (event) => {
@@ -407,6 +618,12 @@ recentBookings.addEventListener("change", (event) => {
     return {
       ...booking,
       status: select.value,
+      trackingStatus: select.value,
+      workerResponse: ["Worker Accepted", "On The Way", "Work Started"].includes(select.value)
+        ? "Accepted"
+        : select.value === "Completed"
+          ? "Completed"
+          : booking.workerResponse || "Waiting",
     };
   });
 
@@ -445,16 +662,13 @@ recentBookings.addEventListener("change", (event) => {
 
     return {
       ...booking,
-      status: "Worker Assigned",
-      trackingStatus: "Worker Assigned",
-      assignedWorker: {
-        id: worker.id,
-        name: worker.name,
-        phone: worker.phone,
-        service: worker.service || worker.skill || booking.service,
-        rating: worker.rating,
-        price: normalizeWorkerPrice(worker),
-      },
+      status: "Worker Accepted",
+      trackingStatus: "Worker Accepted",
+      assignedWorker: worker.name,
+      assignedWorkerPhone: worker.phone,
+      assignedWorkerId: worker.id,
+      workerResponse: "Accepted by Admin",
+      assignedWorkerService: worker.service || worker.skill || booking.service,
     };
   });
 
@@ -514,7 +728,7 @@ workerForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const worker = {
-    id: `worker-${Date.now()}`,
+    id: editingWorkerId.value || `worker-${Date.now()}`,
     name: workerFields.name.value.trim(),
     service: workerFields.service.value,
     phone: workerFields.phone.value.trim(),
@@ -529,23 +743,30 @@ workerForm.addEventListener("submit", (event) => {
     return;
   }
 
-  const button = workerForm.querySelector("button[type='submit']");
+  const button = workerSubmitButton;
   button.classList.add("is-loading");
-  button.textContent = "Adding...";
+  button.textContent = editingWorkerId.value ? "Updating..." : "Adding...";
 
-  const workers = getWorkers();
-  workers.push(worker);
+  const workers = editingWorkerId.value
+    ? getWorkers().map((item) => (item.id === editingWorkerId.value ? worker : item))
+    : [...getWorkers(), worker];
   setWorkers(workers);
 
-  workerStatus.textContent = "Worker added successfully.";
-  showToast("Worker added successfully.");
-  workerForm.reset();
+  workerStatus.textContent = editingWorkerId.value ? "Worker updated successfully." : "Worker added successfully.";
+  showToast(editingWorkerId.value ? "Worker updated successfully." : "Worker added successfully.");
   button.classList.remove("is-loading");
-  button.textContent = "Add Worker";
+  resetWorkerForm();
   renderWorkers();
 });
 
 workerList.addEventListener("click", (event) => {
+  const editButton = event.target.closest("[data-edit-worker]");
+
+  if (editButton) {
+    startWorkerEdit(editButton.dataset.editWorker);
+    return;
+  }
+
   const button = event.target.closest("[data-delete-worker]");
 
   if (!button) {
@@ -558,9 +779,27 @@ workerList.addEventListener("click", (event) => {
   showToast("Worker deleted.");
 });
 
+workerList.addEventListener("change", (event) => {
+  const input = event.target.closest("[data-worker-dp]");
+
+  if (!input) {
+    return;
+  }
+
+  updateWorkerDp(input.dataset.workerDp, input.files?.[0]);
+  input.value = "";
+});
+
+cancelWorkerEdit.addEventListener("click", () => {
+  resetWorkerForm();
+  workerStatus.textContent = "Edit cancelled.";
+});
+
 renderStats();
 renderBookings();
 renderSupportRequests();
 renderPayments();
 renderNotifications();
+renderServiceUploads();
+setupServiceUploadsToggle();
 renderWorkers();

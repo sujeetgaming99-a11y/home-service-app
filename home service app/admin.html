@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard - HomeFix</title>
     <link rel="stylesheet" href="admin.css" />
+    <link rel="stylesheet" href="theme.css?v=4" />
   </head>
   <body>
     <header class="admin-header">
@@ -13,10 +14,17 @@
           <span class="brand-mark">HF</span>
           <span>HomeFix Admin</span>
         </a>
+        <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
         <div class="nav-links">
           <a href="index.html">Home</a>
           <a href="booking.html">Booking</a>
           <a href="workers.html">Workers</a>
+          <a href="worker-dashboard.html">Worker Dashboard</a>
           <a href="history.html">History</a>
           <a href="track.html">Track</a>
           <a href="notifications.html">Notifications</a>
@@ -78,7 +86,9 @@
                 <th>Date</th>
                 <th>Time</th>
                 <th>Phone</th>
-                <th>Worker</th>
+                <th>Manual Assign</th>
+                <th>Assigned Worker</th>
+                <th>Worker Response</th>
                 <th>Payment</th>
                 <th>Status</th>
               </tr>
@@ -153,12 +163,21 @@
         </div>
       </section>
 
+      <section class="admin-panel service-uploads-panel">
+        <div class="panel-heading">
+          <h2>Uploaded Service Photos</h2>
+          <button class="toggle-service-uploads" id="toggleServiceUploads" type="button" aria-expanded="false">Show Photos</button>
+        </div>
+        <div class="service-upload-list is-hidden" id="serviceUploadsList"></div>
+      </section>
+
       <section class="admin-panel">
         <div class="panel-heading">
           <h2>Manage workers</h2>
         </div>
 
         <form class="worker-form" id="workerForm">
+          <input id="editingWorkerId" type="hidden" />
           <div class="field">
             <label for="workerName">Name</label>
             <input id="workerName" type="text" placeholder="Worker name" required />
@@ -173,6 +192,8 @@
               <option>Painter</option>
               <option>AC Repair</option>
               <option>Cleaning</option>
+              <option>Appliance Repair</option>
+              <option>Home Maintenance</option>
             </select>
           </div>
           <div class="field">
@@ -191,7 +212,8 @@
             <label for="workerPrice">Price</label>
             <input id="workerPrice" type="number" min="1" placeholder="499" required />
           </div>
-          <button type="submit">Add Worker</button>
+          <button id="workerSubmitButton" type="submit">Add Worker</button>
+          <button class="cancel-edit-button is-hidden" id="cancelWorkerEdit" type="button">Cancel Edit</button>
           <p class="form-status" id="workerStatus" role="status" aria-live="polite"></p>
         </form>
 
@@ -212,19 +234,13 @@
         <a href="index.html">Home</a>
         <a href="booking.html">Booking</a>
         <a href="workers.html">Workers</a>
-        <a href="history.html">History</a>
-        <a href="track.html">Track</a>
-        <a href="notifications.html">Notifications</a>
-        <a href="payment.html">Payment</a>
-        <a href="reviews.html">Customer Reviews</a>
-        <a href="support.html">Support</a>
-        <a href="admin.html">Admin</a>
         <a href="profile.html">Profile</a>
-        <a href="login.html">Login</a>
-        <a href="signup.html">Signup</a>
       </nav>
     </footer>
     <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script src="nav.js"></script>
+
 
     <script src="admin.js"></script>
   </body>

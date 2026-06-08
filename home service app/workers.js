@@ -59,6 +59,22 @@ const defaultWorkers = [
     price: 399,
     phone: "+911234567895",
   },
+  {
+    name: "Arjun Rao",
+    skill: "Appliance Repair",
+    rating: 4.8,
+    experience: "6 years",
+    price: 499,
+    phone: "+911234567896",
+  },
+  {
+    name: "Meera Iyer",
+    skill: "Home Maintenance",
+    rating: 4.9,
+    experience: "10 years",
+    price: 599,
+    phone: "+911234567897",
+  },
 ];
 
 const servicePriceRanges = {
@@ -68,6 +84,8 @@ const servicePriceRanges = {
   Painter: "₹999 - ₹9,999",
   "AC Repair": "₹499 - ₹2,499",
   Cleaning: "₹399 - ₹1,999",
+  "Appliance Repair": "₹499 - ₹1,999",
+  "Home Maintenance": "₹599 - ₹2,999",
 };
 
 const serviceBasePrices = {
@@ -77,7 +95,31 @@ const serviceBasePrices = {
   Painter: 999,
   "AC Repair": 499,
   Cleaning: 399,
+  "Appliance Repair": 499,
+  "Home Maintenance": 599,
 };
+
+const workerImages = {
+  "Rahul Sharma": "assets/worker-rahul.svg",
+  "Amit Verma": "assets/worker-amit.svg",
+  "Karan Mehta": "assets/worker-karan.svg",
+  "Neha Singh": "assets/worker-neha.svg",
+  "Sameer Khan": "assets/worker-sameer.svg",
+  "Priya Nair": "assets/worker-priya.svg",
+  "Arjun Rao": "assets/worker-arjun.svg",
+  "Meera Iyer": "assets/worker-meera.svg",
+};
+
+function getWorkerImage(worker) {
+  const uploadedImages = JSON.parse(localStorage.getItem("homefixWorkerImages") || "{}");
+  return uploadedImages[worker.name] || worker.image || worker.imageUrl || workerImages[worker.name] || "assets/worker-default.svg";
+}
+
+function saveWorkerImage(workerName, imageData) {
+  const uploadedImages = JSON.parse(localStorage.getItem("homefixWorkerImages") || "{}");
+  uploadedImages[workerName] = imageData;
+  localStorage.setItem("homefixWorkerImages", JSON.stringify(uploadedImages));
+}
 
 function formatPrice(value) {
   const amount = Number(value) || 0;
@@ -92,7 +134,7 @@ function normalizeWorkerPrice(worker) {
 
 function getWorkers() {
   const saved = localStorage.getItem("homefixWorkers");
-  const workers = saved ? JSON.parse(saved) : defaultWorkers;
+  let workers = saved ? JSON.parse(saved) : defaultWorkers;
 
   if (!saved) {
     localStorage.setItem("homefixWorkers", JSON.stringify(defaultWorkers.map((worker, index) => ({
@@ -104,6 +146,24 @@ function getWorkers() {
       rating: worker.rating,
       price: normalizeWorkerPrice(worker),
     }))));
+  } else {
+    const existingServices = new Set(workers.map((worker) => worker.skill || worker.service));
+    const missingDefaults = defaultWorkers
+      .filter((worker) => !existingServices.has(worker.skill))
+      .map((worker, index) => ({
+        id: `worker-added-${Date.now()}-${index}`,
+        name: worker.name,
+        service: worker.skill,
+        phone: worker.phone,
+        experience: worker.experience,
+        rating: worker.rating,
+        price: normalizeWorkerPrice(worker),
+      }));
+
+    if (missingDefaults.length) {
+      workers = [...workers, ...missingDefaults];
+      localStorage.setItem("homefixWorkers", JSON.stringify(workers));
+    }
   }
 
   return workers.map((worker) => ({
@@ -114,6 +174,7 @@ function getWorkers() {
     price: normalizeWorkerPrice(worker),
     priceLabel: servicePriceRanges[worker.skill || worker.service] || formatPrice(worker.price),
     phone: worker.phone,
+    image: getWorkerImage(worker),
   }));
 }
 
@@ -188,6 +249,7 @@ function renderWorkers() {
     .map(
       (worker) => `
         <article class="worker-card">
+          <img class="worker-photo" src="${worker.image}" alt="${worker.name} profile photo" width="320" height="320" loading="lazy" />
           <div class="worker-top">
             <span class="avatar">${getInitials(worker.name)}</span>
             <div>
@@ -219,6 +281,15 @@ function renderWorkers() {
             <a class="call-button" href="tel:${worker.phone}" data-worker-name="${worker.name}" data-worker-phone="${worker.phone}">Call Worker</a>
             <a class="book-button" href="${getBookingLink(worker)}">Book Now</a>
           </div>
+          <div class="worker-upload">
+            <label for="photo-${getInitials(worker.name)}-${worker.phone.replace(/\D/g, "")}">Upload Photo</label>
+            <input
+              id="photo-${getInitials(worker.name)}-${worker.phone.replace(/\D/g, "")}"
+              type="file"
+              accept="image/*"
+              data-worker-photo="${worker.name}"
+            />
+          </div>
         </article>
       `
     )
@@ -245,6 +316,29 @@ workersGrid.addEventListener("click", (event) => {
     name: callButton.dataset.workerName,
     phone: callButton.dataset.workerPhone,
   });
+});
+
+workersGrid.addEventListener("change", (event) => {
+  const input = event.target.closest("[data-worker-photo]");
+
+  if (!input) {
+    return;
+  }
+
+  const file = input.files?.[0];
+
+  if (!file || !file.type.startsWith("image/")) {
+    showToast("Please upload a valid image file.", "error");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.addEventListener("load", () => {
+    saveWorkerImage(input.dataset.workerPhoto, reader.result);
+    renderWorkers();
+    showToast("Worker photo updated.");
+  });
+  reader.readAsDataURL(file);
 });
 
 closeCallModal.addEventListener("click", closeModal);

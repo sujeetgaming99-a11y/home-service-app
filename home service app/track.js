@@ -13,7 +13,7 @@ const bookingDetails = document.querySelector("#bookingDetails");
 const timeline = document.querySelector("#timeline");
 const nextStatusButton = document.querySelector("#nextStatusButton");
 
-const statusSteps = ["Booking Confirmed", "Worker Assigned", "Worker On The Way", "Service Completed"];
+const statusSteps = ["Pending", "Worker Accepted", "On The Way", "Work Started", "Completed"];
 
 const workerByService = {
   Plumber: { name: "Rahul Sharma", phone: "+911234567890" },
@@ -22,6 +22,8 @@ const workerByService = {
   Painter: { name: "Neha Singh", phone: "+911234567893" },
   "AC Repair": { name: "Sameer Khan", phone: "+911234567894" },
   Cleaning: { name: "Priya Nair", phone: "+911234567895" },
+  "Appliance Repair": { name: "Arjun Rao", phone: "+911234567896" },
+  "Home Maintenance": { name: "Meera Iyer", phone: "+911234567897" },
 };
 
 function getWorkers() {
@@ -42,11 +44,23 @@ function getWorkerForService(service) {
 }
 
 function getAssignedWorker(booking) {
+  if (typeof booking.assignedWorker === "string" && booking.assignedWorker) {
+    return {
+      name: booking.assignedWorker,
+      phone: booking.assignedWorkerPhone || getWorkerForService(booking.service).phone,
+      service: booking.assignedWorkerService || booking.service,
+    };
+  }
+
   if (booking.assignedWorker?.name) {
     return booking.assignedWorker;
   }
 
-  return getWorkerForService(booking.service);
+  return {
+    name: "Waiting for worker",
+    phone: "",
+    service: booking.service,
+  };
 }
 
 function getNotifications() {
@@ -118,6 +132,8 @@ const servicePrices = {
   Painter: 999,
   "AC Repair": 499,
   Cleaning: 399,
+  "Appliance Repair": 499,
+  "Home Maintenance": 599,
 };
 
 function normalizeBookingPrice(booking) {
@@ -133,12 +149,20 @@ function getActiveBooking() {
 }
 
 function normalizeStatus(status) {
-  if (!status || status === "Confirmed") {
-    return "Booking Confirmed";
+  if (!status || status === "Confirmed" || status === "Booking Confirmed") {
+    return "Pending";
   }
 
-  if (status === "Completed") {
-    return "Service Completed";
+  if (status === "Worker Assigned") {
+    return "Worker Accepted";
+  }
+
+  if (status === "Worker On The Way") {
+    return "On The Way";
+  }
+
+  if (status === "Service Completed") {
+    return "Completed";
   }
 
   return status;
@@ -192,8 +216,13 @@ function renderTimeline(booking) {
     .join("");
 
   nextStatusButton.dataset.bookingId = booking.id;
-  nextStatusButton.disabled = currentIndex >= statusSteps.length - 1;
-  nextStatusButton.textContent = currentIndex >= statusSteps.length - 1 ? "Service Completed" : "Move to Next Status";
+  const hasAcceptedWorker = Boolean(getAssignedWorker(booking).name && getAssignedWorker(booking).name !== "Waiting for worker");
+  nextStatusButton.disabled = !hasAcceptedWorker || currentIndex >= statusSteps.length - 1;
+  nextStatusButton.textContent = !hasAcceptedWorker
+    ? "Waiting for Worker"
+    : currentIndex >= statusSteps.length - 1
+      ? "Service Completed"
+      : "Move to Next Status";
 }
 
 function renderTracking() {
@@ -205,16 +234,18 @@ function renderTracking() {
   }
 
   const worker = getAssignedWorker(booking);
+  const hasWorker = Boolean(worker.name && worker.name !== "Waiting for worker");
 
   emptyState.classList.add("is-hidden");
   trackContent.classList.remove("is-hidden");
 
-  assignedMessage.textContent = `Worker assigned for booking ${booking.id}.`;
+  assignedMessage.textContent = hasWorker ? `Worker assigned for booking ${booking.id}.` : `Booking ${booking.id} is waiting for a worker.`;
   workerInitials.textContent = getInitials(worker.name);
   workerName.textContent = worker.name;
   workerService.textContent = booking.service;
-  workerPhone.textContent = worker.phone;
-  callWorker.href = `tel:${worker.phone}`;
+  workerPhone.textContent = worker.phone || "Phone available after acceptance";
+  callWorker.href = worker.phone ? `tel:${worker.phone}` : "#";
+  callWorker.classList.toggle("is-disabled", !worker.phone);
   payNow.href = `payment.html?booking=${encodeURIComponent(booking.id)}`;
   payNow.classList.toggle("is-disabled", booking.paymentStatus === "Paid");
   payNow.textContent = booking.paymentStatus === "Paid" ? "Payment Done" : "Pay Now";
@@ -227,10 +258,12 @@ function renderTracking() {
     detail("Time", booking.time),
     detail("Address", booking.address),
     detail("Phone", booking.phone),
-    detail("Problem", booking.description),
+    detail("Problem", booking.problemDescription || booking.description),
     detail("Estimated Price", booking.price ? formatPrice(normalizeBookingPrice(booking)) : "-"),
     detail("Payment Status", booking.paymentStatus || "Pending"),
-    detail("Assigned Worker", worker.name),
+    detail("Worker Response", booking.workerResponse || "Waiting"),
+    detail("Assigned Worker", hasWorker ? worker.name : "Not assigned"),
+    detail("Worker Phone", worker.phone || "-"),
   ].join("");
 
   cancelBooking.dataset.bookingId = booking.id;

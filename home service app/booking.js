@@ -10,6 +10,10 @@ const successMessage = document.querySelector("#successMessage");
 const summary = document.querySelector("#bookingSummary");
 const summaryPanel = document.querySelector("#summaryPanel");
 const bookingsList = document.querySelector("#bookingsList");
+const summaryTimeSelect = document.querySelector("#summaryTimeSelect");
+const saveSummaryTime = document.querySelector("#saveSummaryTime");
+
+let currentSummaryBookingId = "";
 
 const servicePrices = {
   Plumber: 299,
@@ -18,6 +22,8 @@ const servicePrices = {
   Painter: 999,
   "AC Repair": 499,
   Cleaning: 399,
+  "Appliance Repair": 499,
+  "Home Maintenance": 599,
 };
 
 const defaultWorkers = [
@@ -27,6 +33,8 @@ const defaultWorkers = [
   { id: "worker-painter", name: "Neha Singh", service: "Painter", phone: "+911234567893", experience: "5 years", rating: 4.8, price: 999 },
   { id: "worker-ac", name: "Sameer Khan", service: "AC Repair", phone: "+911234567894", experience: "9 years", rating: 4.9, price: 499 },
   { id: "worker-cleaning", name: "Priya Nair", service: "Cleaning", phone: "+911234567895", experience: "4 years", rating: 4.9, price: 399 },
+  { id: "worker-appliance", name: "Arjun Rao", service: "Appliance Repair", phone: "+911234567896", experience: "6 years", rating: 4.8, price: 499 },
+  { id: "worker-maintenance", name: "Meera Iyer", service: "Home Maintenance", phone: "+911234567897", experience: "10 years", rating: 4.9, price: 599 },
 ];
 
 function formatPrice(value) {
@@ -70,6 +78,27 @@ function updatePrice() {
 
 function createBookingId() {
   return `HF-${Date.now().toString().slice(-8)}`;
+}
+
+function getCustomerName() {
+  const savedProfile = JSON.parse(localStorage.getItem("homefixUserProfile") || "null");
+
+  if (savedProfile?.name) {
+    return savedProfile.name;
+  }
+
+  const users = JSON.parse(localStorage.getItem("homefixUsers") || "[]");
+  const latestUser = users[users.length - 1];
+
+  return latestUser?.name || "HomeFix Customer";
+}
+
+function getAssignedWorkerName(booking) {
+  if (typeof booking.assignedWorker === "string") {
+    return booking.assignedWorker || "Not assigned";
+  }
+
+  return booking.assignedWorker?.name || "Not assigned";
 }
 
 function formatCreatedTime(value) {
@@ -200,17 +229,18 @@ function validateForm() {
 }
 
 function renderSummary(booking) {
+  currentSummaryBookingId = booking.id || "";
   const values = {
     service: booking.service,
     date: booking.date,
     time: booking.time,
     phone: booking.phone,
     address: booking.address,
-    description: booking.description,
+    description: booking.problemDescription || booking.description,
     price: formatPrice(normalizeBookingPrice(booking)),
-    status: booking.status || "Confirmed",
+    status: booking.status || "Pending",
     paymentStatus: booking.paymentStatus || "Pending",
-    assignedWorker: booking.assignedWorker?.name || "Not assigned",
+    assignedWorker: getAssignedWorkerName(booking),
     id: booking.id,
     createdAt: formatCreatedTime(booking.createdAt),
   };
@@ -220,6 +250,35 @@ function renderSummary(booking) {
   });
 
   summaryPanel.classList.remove("is-hidden");
+
+  if (summaryTimeSelect && booking.time) {
+    summaryTimeSelect.value = booking.time;
+  }
+}
+
+function updateBookingTime(bookingId, nextTime) {
+  const bookings = getBookings().map((booking) => {
+    if (booking.id !== bookingId) {
+      return booking;
+    }
+
+    return {
+      ...booking,
+      time: nextTime,
+      updatedAt: new Date().toISOString(),
+    };
+  });
+
+  setBookings(bookings);
+
+  const updatedBooking = bookings.find((booking) => booking.id === bookingId);
+  if (updatedBooking) {
+    localStorage.setItem("homefixLastBooking", JSON.stringify(updatedBooking));
+    renderSummary(updatedBooking);
+  }
+
+  renderBookings();
+  showToast("Booking time updated.");
 }
 
 function createDetail(label, value) {
@@ -243,7 +302,7 @@ function renderBookings() {
     .slice()
     .reverse()
     .map((booking) => {
-      const status = booking.status || "Confirmed";
+      const status = booking.status || "Pending";
       const isCancelled = status === "Cancelled";
 
       return `
@@ -258,14 +317,24 @@ function renderBookings() {
             ${createDetail("Time", booking.time)}
             ${createDetail("Address", booking.address)}
             ${createDetail("Phone", booking.phone)}
-            ${createDetail("Problem", booking.description)}
+            ${createDetail("Problem", booking.problemDescription || booking.description)}
             ${createDetail("Estimated Price", booking.price ? formatPrice(normalizeBookingPrice(booking)) : "-")}
             ${createDetail("Status", status)}
+            ${createDetail("Worker Response", booking.workerResponse || "Waiting")}
             ${createDetail("Payment", booking.paymentStatus || "Pending")}
-            ${createDetail("Worker", booking.assignedWorker?.name || "Not assigned")}
+            ${createDetail("Worker", getAssignedWorkerName(booking))}
             ${createDetail("Booking ID", booking.id)}
             ${createDetail("Created time", formatCreatedTime(booking.createdAt))}
           </dl>
+          <div class="time-editor">
+            <label for="time-${escapeHtml(booking.id)}">Edit Time</label>
+            <select id="time-${escapeHtml(booking.id)}" data-time-select="${escapeHtml(booking.id)}">
+              ${["Next 30 minutes", "09:00 AM", "11:00 AM", "01:00 PM", "03:00 PM", "05:00 PM", "07:00 PM"]
+                .map((item) => `<option ${item === booking.time ? "selected" : ""}>${item}</option>`)
+                .join("")}
+            </select>
+            <button type="button" data-edit-time="${escapeHtml(booking.id)}">Save Time</button>
+          </div>
           <button class="cancel-button" type="button" data-cancel-id="${escapeHtml(booking.id)}" ${isCancelled ? "disabled" : ""}>
             ${isCancelled ? "Booking Cancelled" : "Cancel Booking"}
           </button>
@@ -339,35 +408,53 @@ bookingForm.addEventListener("submit", (event) => {
 
   const booking = {
     id: createBookingId(),
+    customerName: getCustomerName(),
     service: serviceInput.value,
     date: dateInput.value,
     time: timeInput.value,
     address: addressInput.value.trim(),
     phone: phoneInput.value.trim(),
+    problemDescription: descriptionInput.value.trim(),
     description: descriptionInput.value.trim(),
     price: getPrice(),
-    status: "Worker Assigned",
-    trackingStatus: "Worker Assigned",
+    status: "Pending",
+    trackingStatus: "Pending",
+    workerResponse: "Waiting",
     paymentStatus: "Pending",
-    assignedWorker: assignWorker(serviceInput.value),
+    assignedWorker: "",
+    assignedWorkerPhone: "",
+    rejectedWorkers: [],
     createdAt: new Date().toISOString(),
   };
 
   saveBooking(booking);
   addNotification(
-    "Booking confirmed",
-    `${booking.assignedWorker.name} has been assigned for ${booking.service}. Estimated price ${formatPrice(booking.price)}.`,
+    "Booking request created",
+    `Your ${booking.service} request is waiting for a worker. Estimated price ${formatPrice(booking.price)}.`,
     "Booking"
   );
   renderSummary(booking);
   renderBookings();
-  successMessage.textContent = "Booking confirmed successfully.";
-  showToast("Booking confirmed successfully.");
+  successMessage.textContent = "Booking request sent successfully. Waiting for worker response.";
+  showToast("Booking request sent successfully.");
   bookingForm.reset();
   updatePrice();
 });
 
 bookingsList.addEventListener("click", (event) => {
+  const editButton = event.target.closest("[data-edit-time]");
+
+  if (editButton) {
+    const bookingId = editButton.dataset.editTime;
+    const select = bookingsList.querySelector(`[data-time-select="${CSS.escape(bookingId)}"]`);
+
+    if (select) {
+      updateBookingTime(bookingId, select.value);
+    }
+
+    return;
+  }
+
   const button = event.target.closest("[data-cancel-id]");
 
   if (!button) {
@@ -396,4 +483,13 @@ bookingsList.addEventListener("click", (event) => {
 
   renderBookings();
   showToast("Booking status updated.");
+});
+
+saveSummaryTime.addEventListener("click", () => {
+  if (!currentSummaryBookingId || !summaryTimeSelect) {
+    showToast("No booking selected to update.", "error");
+    return;
+  }
+
+  updateBookingTime(currentSummaryBookingId, summaryTimeSelect.value);
 });

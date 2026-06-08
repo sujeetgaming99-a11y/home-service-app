@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Book a Service - HomeFix</title>
     <link rel="stylesheet" href="booking.css" />
+    <link rel="stylesheet" href="theme.css?v=4" />
   </head>
   <body>
     <header class="booking-header">
@@ -13,10 +14,17 @@
           <span class="brand-mark">HF</span>
           <span>HomeFix</span>
         </a>
+        <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
         <div class="nav-actions">
           <a href="index.html">Home</a>
           <a href="booking.html">Booking</a>
           <a href="workers.html">Workers</a>
+          <a href="worker-dashboard.html">Worker Dashboard</a>
           <a href="history.html">History</a>
           <a href="track.html">Track</a>
           <a href="notifications.html">Notifications</a>
@@ -51,6 +59,8 @@
                 <option value="Painter">Painter</option>
                 <option value="AC Repair">AC Repair</option>
                 <option value="Cleaning">Cleaning</option>
+                <option value="Appliance Repair">Appliance Repair</option>
+                <option value="Home Maintenance">Home Maintenance</option>
               </select>
               <small class="error-message"></small>
             </div>
@@ -160,6 +170,19 @@
               <dd data-summary="createdAt">-</dd>
             </div>
           </dl>
+          <div class="summary-actions">
+            <label for="summaryTimeSelect">Edit Time</label>
+            <select id="summaryTimeSelect">
+              <option>Next 30 minutes</option>
+              <option>09:00 AM</option>
+              <option>11:00 AM</option>
+              <option>01:00 PM</option>
+              <option>03:00 PM</option>
+              <option>05:00 PM</option>
+              <option>07:00 PM</option>
+            </select>
+            <button id="saveSummaryTime" type="button">Save Time</button>
+          </div>
         </aside>
       </section>
 
@@ -180,19 +203,13 @@
         <a href="index.html">Home</a>
         <a href="booking.html">Booking</a>
         <a href="workers.html">Workers</a>
-        <a href="history.html">History</a>
-        <a href="track.html">Track</a>
-        <a href="notifications.html">Notifications</a>
-        <a href="payment.html">Payment</a>
-        <a href="reviews.html">Customer Reviews</a>
-        <a href="support.html">Support</a>
-        <a href="admin.html">Admin</a>
         <a href="profile.html">Profile</a>
-        <a href="login.html">Login</a>
-        <a href="signup.html">Signup</a>
       </nav>
     </footer>
     <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script src="nav.js"></script>
+
 
     <script src="booking.js"></script>
   </body>

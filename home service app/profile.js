@@ -123,6 +123,8 @@ const servicePrices = {
   Painter: 999,
   "AC Repair": 499,
   Cleaning: 399,
+  "Appliance Repair": 499,
+  "Home Maintenance": 599,
 };
 
 function normalizeBookingPrice(booking) {

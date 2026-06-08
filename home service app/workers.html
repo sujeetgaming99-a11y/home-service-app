@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Workers - HomeFix</title>
     <link rel="stylesheet" href="workers.css" />
+    <link rel="stylesheet" href="theme.css?v=4" />
   </head>
   <body>
     <header class="workers-header">
@@ -13,10 +14,17 @@
           <span class="brand-mark">HF</span>
           <span>HomeFix</span>
         </a>
+        <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
         <div class="nav-links">
           <a href="index.html">Home</a>
           <a href="booking.html">Booking</a>
           <a href="workers.html">Workers</a>
+          <a href="worker-dashboard.html">Worker Dashboard</a>
           <a href="history.html">History</a>
           <a href="track.html">Track</a>
           <a href="notifications.html">Notifications</a>
@@ -54,6 +62,8 @@
             <option value="Painter">Painter</option>
             <option value="AC Repair">AC Repair</option>
             <option value="Cleaning">Cleaning</option>
+            <option value="Appliance Repair">Appliance Repair</option>
+            <option value="Home Maintenance">Home Maintenance</option>
           </select>
         </div>
       </section>
@@ -87,19 +97,13 @@
         <a href="index.html">Home</a>
         <a href="booking.html">Booking</a>
         <a href="workers.html">Workers</a>
-        <a href="history.html">History</a>
-        <a href="track.html">Track</a>
-        <a href="notifications.html">Notifications</a>
-        <a href="payment.html">Payment</a>
-        <a href="reviews.html">Customer Reviews</a>
-        <a href="support.html">Support</a>
-        <a href="admin.html">Admin</a>
         <a href="profile.html">Profile</a>
-        <a href="login.html">Login</a>
-        <a href="signup.html">Signup</a>
       </nav>
     </footer>
     <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script src="nav.js"></script>
+
 
     <script src="workers.js"></script>
   </body>

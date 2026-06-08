@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HomeFix - Trusted Home Services</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="theme.css?v=4" />
   </head>
   <body>
     <header class="site-header">
@@ -24,6 +25,7 @@
           <a href="index.html">Home</a>
           <a href="booking.html">Booking</a>
           <a href="workers.html">Workers</a>
+          <a href="worker-dashboard.html">Worker Dashboard</a>
           <a href="history.html">History</a>
           <a href="track.html">Track</a>
           <a href="notifications.html">Notifications</a>
@@ -63,10 +65,12 @@
                 <option>Plumber</option>
                 <option>Electrician</option>
                 <option>Carpenter</option>
-                <option>Painter</option>
-                <option>AC Repair</option>
-                <option>Cleaning</option>
-              </select>
+              <option>Painter</option>
+              <option>AC Repair</option>
+              <option>Cleaning</option>
+              <option>Appliance Repair</option>
+              <option>Home Maintenance</option>
+            </select>
             </div>
             <div class="field-group">
               <label for="bookingLocation">Location</label>
@@ -103,6 +107,14 @@
         </div>
 
         <div class="hero-panel" aria-label="Today's service availability">
+          <img
+            class="hero-image"
+            src="assets/hero-home.jpg.png"
+            alt="HomeFix professional arriving for a home service"
+            width="960"
+            height="640"
+            fetchpriority="high"
+          />
           <div class="status-card active">
             <span class="status-icon tool-icon"></span>
             <div>
@@ -131,37 +143,70 @@
           <h2>Services for every corner of your home</h2>
         </div>
 
-        <div class="category-grid">
-          <button class="category-card" type="button" data-service="Plumber">
-            <span class="category-icon pipe-icon"></span>
+        <div class="category-grid service-grid">
+          <button class="category-card service-card" type="button" data-service="Plumber">
+            <img class="service-image" src="assets/plumber.jpg.jpg" alt="Plumber service" width="520" height="320" loading="lazy" />
             <strong>Plumber</strong>
             <small>₹299 - ₹799</small>
           </button>
-          <button class="category-card" type="button" data-service="Electrician">
-            <span class="category-icon bolt-icon"></span>
+          <button class="category-card service-card" type="button" data-service="Electrician">
+            <img class="service-image" src="assets/electrician.jpg.jpg" alt="Electrician service" width="520" height="320" loading="lazy" />
             <strong>Electrician</strong>
             <small>₹299 - ₹999</small>
           </button>
-          <button class="category-card" type="button" data-service="Carpenter">
-            <span class="category-icon wood-icon"></span>
+          <button class="category-card service-card" type="button" data-service="Carpenter">
+            <img class="service-image" src="assets/carpenter.jpg.jpg" alt="Carpenter service" width="520" height="320" loading="lazy" />
             <strong>Carpenter</strong>
             <small>₹399 - ₹1,499</small>
           </button>
-          <button class="category-card" type="button" data-service="Painter">
-            <span class="category-icon brush-icon"></span>
+          <button class="category-card service-card" type="button" data-service="Painter">
+            <img class="service-image" src="assets/painter.jpg.jpg" alt="Painter service" width="520" height="320" loading="lazy" />
             <strong>Painter</strong>
             <small>₹999 - ₹9,999</small>
           </button>
-          <button class="category-card" type="button" data-service="AC Repair">
-            <span class="category-icon snow-icon"></span>
+          <button class="category-card service-card" type="button" data-service="AC Repair">
+            <img class="service-image" src="assets/ac-repair.jpg.jpg" alt="AC repair service" width="520" height="320" loading="lazy" />
             <strong>AC Repair</strong>
             <small>₹499 - ₹2,499</small>
           </button>
-          <button class="category-card" type="button" data-service="Cleaning">
-            <span class="category-icon clean-icon"></span>
+          <button class="category-card service-card" type="button" data-service="Cleaning">
+            <img class="service-image" src="assets/cleaning.jpg.jpg" alt="Cleaning service" width="520" height="320" loading="lazy" />
             <strong>Cleaning</strong>
             <small>₹399 - ₹1,999</small>
           </button>
+          <button class="category-card service-card" type="button" data-service="Appliance Repair">
+            <img class="service-image" src="assets/appliance-repair.jpg.jpg" alt="Appliance repair service" width="520" height="320" loading="lazy" />
+            <strong>Appliance Repair</strong>
+            <small>₹499 - ₹1,999</small>
+          </button>
+          <button class="category-card service-card" type="button" data-service="Home Maintenance">
+            <img class="service-image" src="assets/home-maintenance.jpg.jpg" alt="Home maintenance service" width="520" height="320" loading="lazy" />
+            <strong>Home Maintenance</strong>
+            <small>₹599 - ₹2,999</small>
+          </button>
+        </div>
+
+        <div class="image-upload-panel" aria-label="Service photo upload">
+          <div>
+            <p class="eyebrow">Customize</p>
+            <h3>Upload service photo</h3>
+          </div>
+          <div class="upload-controls">
+            <label for="servicePhotoService">Service</label>
+            <select id="servicePhotoService">
+              <option>Plumber</option>
+              <option>Electrician</option>
+              <option>Carpenter</option>
+              <option>Painter</option>
+              <option>AC Repair</option>
+              <option>Cleaning</option>
+              <option>Appliance Repair</option>
+              <option>Home Maintenance</option>
+            </select>
+            <label class="upload-button" for="servicePhotoUpload">Upload Photo</label>
+            <input id="servicePhotoUpload" type="file" accept="image/*" />
+          </div>
+          <img class="upload-preview is-hidden" id="servicePhotoPreview" alt="Service upload preview" />
         </div>
       </section>
 
@@ -254,6 +299,8 @@
                 <option>Painter</option>
                 <option>AC Repair</option>
                 <option>Cleaning</option>
+                <option>Appliance Repair</option>
+                <option>Home Maintenance</option>
               </select>
             </div>
             <div class="field-group">
@@ -294,19 +341,13 @@
         <a href="index.html">Home</a>
         <a href="booking.html">Booking</a>
         <a href="workers.html">Workers</a>
-        <a href="history.html">History</a>
-        <a href="track.html">Track</a>
-        <a href="notifications.html">Notifications</a>
-        <a href="payment.html">Payment</a>
-        <a href="reviews.html">Customer Reviews</a>
-        <a href="support.html">Support</a>
-        <a href="admin.html">Admin</a>
         <a href="profile.html">Profile</a>
-        <a href="login.html">Login</a>
-        <a href="signup.html">Signup</a>
       </div>
     </footer>
     <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script src="nav.js"></script>
+
 
     <script src="script.js"></script>
   </body>

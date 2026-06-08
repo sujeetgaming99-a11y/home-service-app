@@ -289,19 +289,29 @@ textarea {
 
 .hero-panel {
   position: relative;
-  padding: 24px;
+  padding: 16px;
   background:
-    linear-gradient(135deg, rgba(15, 118, 110, 0.92), rgba(45, 125, 210, 0.78)),
-    linear-gradient(45deg, transparent 48%, rgba(255, 255, 255, 0.22) 49%, rgba(255, 255, 255, 0.22) 51%, transparent 52%);
-  background-size: auto, 36px 36px;
-  border-radius: 8px;
-  box-shadow: var(--shadow);
+    linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(236, 248, 243, 0.88)),
+    linear-gradient(135deg, rgba(15, 118, 110, 0.12), rgba(45, 125, 210, 0.08));
+  border: 1px solid rgba(15, 118, 110, 0.14);
+  border-radius: 18px;
+  box-shadow: 0 24px 55px rgba(15, 38, 50, 0.16);
   overflow: hidden;
 }
 
-.hero-panel::before {
-  content: "";
+.hero-image {
+  width: 100%;
+  height: 420px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center;
   display: block;
+  border-radius: 18px;
+}
+
+.hero-panel::before {
+  content: none;
+  display: none;
   height: 170px;
   margin-bottom: 18px;
   border-radius: 8px;
@@ -504,13 +514,114 @@ textarea {
 }
 
 .category-card {
-  min-height: 164px;
-  padding: 22px;
+  min-height: 250px;
+  padding: 12px;
   display: grid;
+  grid-template-rows: auto auto auto;
   gap: 10px;
   justify-items: start;
   text-align: left;
   cursor: pointer;
+  overflow: hidden;
+}
+
+.service-card {
+  height: auto;
+  overflow: hidden;
+}
+
+.service-card img,
+.service-image {
+  width: 100%;
+  height: 160px;
+  display: block;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 10px 22px rgba(28, 43, 54, 0.08);
+  transition: transform 0.22s ease, filter 0.22s ease;
+}
+
+.category-card strong,
+.category-card small {
+  padding-inline: 8px;
+}
+
+.category-card:hover .service-image,
+.category-card:focus .service-image {
+  transform: scale(1.035);
+  filter: saturate(1.08);
+}
+
+.image-upload-panel {
+  margin-top: 22px;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.8fr) 180px;
+  gap: 16px;
+  align-items: end;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 12px 30px rgba(28, 43, 54, 0.07);
+}
+
+.image-upload-panel h3 {
+  margin: 6px 0 0;
+}
+
+.upload-controls {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: end;
+}
+
+.upload-controls label:first-child {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.upload-controls select {
+  min-height: 44px;
+  min-width: 0;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.upload-button {
+  min-height: 44px;
+  padding: 0 14px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 8px;
+  color: #fff;
+  background: var(--teal);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.upload-controls input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.upload-preview {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 10px 22px rgba(28, 43, 54, 0.08);
+}
+
+.is-hidden {
+  display: none !important;
 }
 
 .category-card:hover,
@@ -748,6 +859,11 @@ textarea {
 
   .hero-panel {
     order: -1;
+    padding: 12px;
+  }
+
+  .hero-image {
+    max-height: 320px;
   }
 
   .category-grid,
@@ -803,7 +919,12 @@ textarea {
   }
 
   .category-card {
-    min-height: 140px;
+    min-height: 240px;
+  }
+
+  .image-upload-panel,
+  .upload-controls {
+    grid-template-columns: 1fr;
   }
 
   .popular-item {
@@ -815,4 +936,59 @@ textarea {
     align-items: stretch;
     flex-direction: column;
   }
+}
+.service-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+  margin-bottom: 14px;
+}
+.service-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.service-card {
+  padding: 18px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+.service-grid {
+  gap: 24px;
+}
+
+.image-upload-panel {
+  margin-top: 60px;
+}
+.hero-panel {
+  width: 100%;
+  max-width: 650px;
+}
+
+.hero-image {
+  width: 100%;
+  height: 420px;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  border-radius: 18px;
+  background: #f8fafc;
+}
+
+.hero {
+  grid-template-columns: 1fr 1.15fr;
 }

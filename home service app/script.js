@@ -15,8 +15,11 @@ const writeReviewButton = document.querySelector("#writeReviewButton");
 const reviewForm = document.querySelector("#reviewForm");
 const reviewsGrid = document.querySelector("#reviewsGrid");
 const reviewMessage = document.querySelector("#reviewMessage");
+const servicePhotoService = document.querySelector("#servicePhotoService");
+const servicePhotoUpload = document.querySelector("#servicePhotoUpload");
+const servicePhotoPreview = document.querySelector("#servicePhotoPreview");
 
-const services = ["Plumber", "Electrician", "Carpenter", "Painter", "AC Repair", "Cleaning"];
+const services = ["Plumber", "Electrician", "Carpenter", "Painter", "AC Repair", "Cleaning", "Appliance Repair", "Home Maintenance"];
 const sampleReviews = [
   {
     name: "Maria G.",
@@ -78,6 +81,14 @@ const serviceDetails = {
   Cleaning: {
     title: "Deep cleaning service",
     meta: "Available today afternoon",
+  },
+  "Appliance Repair": {
+    title: "Appliance diagnosis",
+    meta: "Available today evening",
+  },
+  "Home Maintenance": {
+    title: "Home maintenance visit",
+    meta: "Available tomorrow morning",
   },
 };
 
@@ -141,6 +152,53 @@ function saveReview(review) {
   localStorage.setItem("homefixReviews", JSON.stringify(reviews));
 }
 
+function getServiceImages() {
+  return JSON.parse(localStorage.getItem("homefixServiceImages") || "{}");
+}
+
+function setServiceImages(images) {
+  localStorage.setItem("homefixServiceImages", JSON.stringify(images));
+}
+
+function getServiceImageSrc(entry) {
+  return typeof entry === "string" ? entry : entry?.image;
+}
+
+function getUploaderName() {
+  const savedProfile = JSON.parse(localStorage.getItem("homefixUserProfile") || "null");
+
+  if (savedProfile?.name) {
+    return savedProfile.name;
+  }
+
+  const users = JSON.parse(localStorage.getItem("homefixUsers") || "[]");
+  const latestUser = users[users.length - 1];
+
+  return latestUser?.name || latestUser?.email || "HomeFix User";
+}
+
+function applyServiceImages() {
+  const images = getServiceImages();
+
+  categoryCards.forEach((card) => {
+    const image = card.querySelector(".service-image");
+    const customImage = getServiceImageSrc(images[card.dataset.service]);
+
+    if (image && customImage) {
+      image.src = customImage;
+    }
+  });
+
+  if (servicePhotoService && servicePhotoPreview) {
+    const selectedImage = getServiceImageSrc(images[servicePhotoService.value]);
+    servicePhotoPreview.classList.toggle("is-hidden", !selectedImage);
+
+    if (selectedImage) {
+      servicePhotoPreview.src = selectedImage;
+    }
+  }
+}
+
 function getStars(rating) {
   const safeRating = Math.max(1, Math.min(5, Number(rating) || 1));
   return "★".repeat(safeRating) + "☆".repeat(5 - safeRating);
@@ -178,22 +236,6 @@ function renderReviews() {
       `
     )
     .join("");
-}
-
-if (menuToggle && navLinks) {
-  menuToggle.addEventListener("click", () => {
-    const isOpen = navLinks.classList.toggle("open");
-    menuToggle.setAttribute("aria-expanded", String(isOpen));
-    menuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
-  });
-
-  navLinks.addEventListener("click", (event) => {
-    if (event.target.matches("a")) {
-      navLinks.classList.remove("open");
-      menuToggle.setAttribute("aria-expanded", "false");
-      menuToggle.setAttribute("aria-label", "Open menu");
-    }
-  });
 }
 
 if (bookingForm && bookingLocation) {
@@ -318,4 +360,35 @@ if (reviewForm) {
   });
 }
 
+if (servicePhotoService) {
+  servicePhotoService.addEventListener("change", applyServiceImages);
+}
+
+if (servicePhotoUpload) {
+  servicePhotoUpload.addEventListener("change", () => {
+    const file = servicePhotoUpload.files?.[0];
+
+    if (!file || !file.type.startsWith("image/")) {
+      showToast("Please upload a valid image file.", "error");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      const images = getServiceImages();
+      images[servicePhotoService.value] = {
+        image: reader.result,
+        uploadedBy: getUploaderName(),
+        uploadedAt: new Date().toISOString(),
+      };
+      setServiceImages(images);
+      applyServiceImages();
+      showToast("Service photo updated.");
+      servicePhotoUpload.value = "";
+    });
+    reader.readAsDataURL(file);
+  });
+}
+
 renderReviews();
+applyServiceImages();

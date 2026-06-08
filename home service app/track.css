@@ -188,6 +188,7 @@ button {
   background: #2d7dd2;
 }
 
+.call-button.is-disabled,
 .pay-button.is-disabled {
   pointer-events: none;
   color: var(--muted);
