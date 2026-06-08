@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Help and Support - HomeFix</title>
+    <link rel="stylesheet" href="support.css" />
+  </head>
+  <body>
+    <header class="support-header">
+      <nav class="support-nav" aria-label="Support navigation">
+        <a class="brand" href="index.html" aria-label="HomeFix home">
+          <span class="brand-mark">HF</span>
+          <span>HomeFix</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="booking.html">Booking</a>
+          <a href="workers.html">Workers</a>
+          <a href="history.html">History</a>
+          <a href="track.html">Track</a>
+          <a href="notifications.html">Notifications</a>
+          <a href="payment.html">Payment</a>
+          <a href="reviews.html">Customer Reviews</a>
+          <a href="support.html">Support</a>
+          <a href="admin.html">Admin</a>
+          <a href="profile.html">Profile</a>
+          <a href="login.html">Login</a>
+          <a href="signup.html">Signup</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="support-page">
+      <section class="page-intro">
+        <p class="eyebrow">Help center</p>
+        <h1>Help and Support</h1>
+        <p>Find quick answers or send a support request to the HomeFix team.</p>
+      </section>
+
+      <section class="support-layout">
+        <article class="faq-panel">
+          <div class="panel-heading">
+            <h2>FAQ</h2>
+          </div>
+          <div class="faq-list">
+            <details open>
+              <summary>How do I track my worker?</summary>
+              <p>Open the Track page after confirming a booking. Your latest active booking will appear there.</p>
+            </details>
+            <details>
+              <summary>Can I cancel a booking?</summary>
+              <p>Yes. You can cancel from the Booking page or the Worker Tracking page before completion.</p>
+            </details>
+            <details>
+              <summary>Where is my booking history saved?</summary>
+              <p>Bookings are saved locally in your browser using localStorage until a backend is added.</p>
+            </details>
+            <details>
+              <summary>How do I contact my worker?</summary>
+              <p>Use the Call Worker button on tracking or worker profile pages.</p>
+            </details>
+          </div>
+        </article>
+
+        <article class="support-panel">
+          <div class="panel-heading">
+            <h2>Contact support</h2>
+          </div>
+          <form class="support-form" id="supportForm">
+            <div class="field">
+              <label for="supportName">User Name</label>
+              <input id="supportName" type="text" placeholder="Your full name" required />
+            </div>
+            <div class="field">
+              <label for="supportEmail">Email</label>
+              <input id="supportEmail" type="email" placeholder="you@example.com" required />
+            </div>
+            <div class="field">
+              <label for="supportCategory">Problem category</label>
+              <select id="supportCategory" required>
+                <option value="">Choose category</option>
+                <option>Booking issue</option>
+                <option>Payment issue</option>
+                <option>Worker issue</option>
+                <option>Cancellation request</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="supportMessage">Message</label>
+              <textarea id="supportMessage" rows="7" placeholder="Tell us what happened" required></textarea>
+            </div>
+            <button type="submit">Submit Request</button>
+            <p class="success-message" id="supportSuccess" role="status" aria-live="polite"></p>
+          </form>
+        </article>
+      </section>
+
+      <section class="support-history-section" aria-labelledby="supportHistoryTitle">
+        <div class="panel-heading">
+          <h2 id="supportHistoryTitle">Support History</h2>
+        </div>
+        <div class="support-history-list" id="supportHistoryList"></div>
+      </section>
+
+      <section class="ticket-detail-panel is-hidden" id="ticketDetailPanel" aria-labelledby="ticketDetailTitle">
+        <div class="panel-heading">
+          <h2 id="ticketDetailTitle">Support Ticket Details</h2>
+          <button class="close-detail-button" id="closeTicketDetail" type="button">Close</button>
+        </div>
+        <dl class="ticket-details" id="ticketDetailContent"></dl>
+      </section>
+    </main>
+    <footer class="app-footer">
+      <span>HomeFix</span>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="booking.html">Booking</a>
+        <a href="workers.html">Workers</a>
+        <a href="history.html">History</a>
+        <a href="track.html">Track</a>
+        <a href="notifications.html">Notifications</a>
+        <a href="payment.html">Payment</a>
+        <a href="reviews.html">Customer Reviews</a>
+        <a href="support.html">Support</a>
+        <a href="admin.html">Admin</a>
+        <a href="profile.html">Profile</a>
+        <a href="login.html">Login</a>
+        <a href="signup.html">Signup</a>
+      </nav>
+    </footer>
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script src="support.js"></script>
+  </body>
+</html>

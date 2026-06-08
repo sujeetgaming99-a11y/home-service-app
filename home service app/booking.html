@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book a Service - HomeFix</title>
+    <link rel="stylesheet" href="booking.css" />
+  </head>
+  <body>
+    <header class="booking-header">
+      <nav class="booking-nav" aria-label="Booking navigation">
+        <a class="brand" href="index.html" aria-label="HomeFix home">
+          <span class="brand-mark">HF</span>
+          <span>HomeFix</span>
+        </a>
+        <div class="nav-actions">
+          <a href="index.html">Home</a>
+          <a href="booking.html">Booking</a>
+          <a href="workers.html">Workers</a>
+          <a href="history.html">History</a>
+          <a href="track.html">Track</a>
+          <a href="notifications.html">Notifications</a>
+          <a href="payment.html">Payment</a>
+          <a href="reviews.html">Customer Reviews</a>
+          <a href="support.html">Support</a>
+          <a href="admin.html">Admin</a>
+          <a href="profile.html">Profile</a>
+          <a href="login.html">Login</a>
+          <a href="signup.html">Signup</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="booking-page">
+      <section class="booking-intro">
+        <p class="eyebrow">Book service</p>
+        <h1>Schedule a trusted expert for your home</h1>
+        <p>Choose the service, share the issue, and confirm your appointment in a few steps.</p>
+      </section>
+
+      <section class="booking-layout">
+        <form class="booking-form" id="bookingForm" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="service">Select service</label>
+              <select id="service" name="service" required>
+                <option value="">Choose service</option>
+                <option value="Plumber">Plumber</option>
+                <option value="Electrician">Electrician</option>
+                <option value="Carpenter">Carpenter</option>
+                <option value="Painter">Painter</option>
+                <option value="AC Repair">AC Repair</option>
+                <option value="Cleaning">Cleaning</option>
+              </select>
+              <small class="error-message"></small>
+            </div>
+
+            <div class="field">
+              <label for="date">Select date</label>
+              <input id="date" name="date" type="date" required />
+              <small class="error-message"></small>
+            </div>
+
+            <div class="field">
+              <label for="time">Select time</label>
+              <select id="time" name="time" required>
+                <option value="">Choose time</option>
+                <option>Next 30 minutes</option>
+                <option>09:00 AM</option>
+                <option>11:00 AM</option>
+                <option>01:00 PM</option>
+                <option>03:00 PM</option>
+                <option>05:00 PM</option>
+                <option>07:00 PM</option>
+              </select>
+              <small class="error-message"></small>
+            </div>
+
+            <div class="field">
+              <label for="phone">Phone number</label>
+              <input id="phone" name="phone" type="tel" placeholder="10 digit phone number" required />
+              <small class="error-message"></small>
+            </div>
+
+            <div class="field full">
+              <label for="address">Address</label>
+              <input id="address" name="address" type="text" placeholder="House number, street, area" required />
+              <small class="error-message"></small>
+            </div>
+
+            <div class="field full">
+              <label for="description">Problem description</label>
+              <textarea id="description" name="description" rows="5" placeholder="Describe the issue briefly" required></textarea>
+              <small class="error-message"></small>
+            </div>
+          </div>
+
+          <div class="price-box" aria-live="polite">
+            <span>Estimated Price:</span>
+            <strong id="estimatedPrice">₹0</strong>
+          </div>
+
+          <button class="confirm-button" type="submit">Confirm Booking</button>
+          <p class="success-message" id="successMessage" role="status" aria-live="polite"></p>
+        </form>
+
+        <aside class="summary-panel is-hidden" id="summaryPanel" aria-label="Booking summary">
+          <div class="summary-heading">
+            <p class="eyebrow">Confirmed</p>
+            <h2>My Booking Summary</h2>
+          </div>
+
+          <dl class="summary-list" id="bookingSummary">
+            <div>
+              <dt>Service</dt>
+              <dd data-summary="service">-</dd>
+            </div>
+            <div>
+              <dt>Date</dt>
+              <dd data-summary="date">-</dd>
+            </div>
+            <div>
+              <dt>Time</dt>
+              <dd data-summary="time">-</dd>
+            </div>
+            <div>
+              <dt>Phone</dt>
+              <dd data-summary="phone">-</dd>
+            </div>
+            <div>
+              <dt>Address</dt>
+              <dd data-summary="address">-</dd>
+            </div>
+            <div>
+              <dt>Problem</dt>
+              <dd data-summary="description">-</dd>
+            </div>
+            <div>
+              <dt>Estimated Price</dt>
+              <dd data-summary="price">-</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd data-summary="status">-</dd>
+            </div>
+            <div>
+              <dt>Payment</dt>
+              <dd data-summary="paymentStatus">-</dd>
+            </div>
+            <div>
+              <dt>Assigned Worker</dt>
+              <dd data-summary="assignedWorker">-</dd>
+            </div>
+            <div>
+              <dt>Booking ID</dt>
+              <dd data-summary="id">-</dd>
+            </div>
+            <div>
+              <dt>Created time</dt>
+              <dd data-summary="createdAt">-</dd>
+            </div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="my-bookings-section" aria-labelledby="myBookingsTitle">
+        <div class="my-bookings-heading">
+          <p class="eyebrow">Saved bookings</p>
+          <h2 id="myBookingsTitle">My Bookings</h2>
+        </div>
+
+        <div class="bookings-grid" id="bookingsList">
+          <p class="empty-bookings">No bookings yet. Confirm a booking to see it here.</p>
+        </div>
+      </section>
+    </main>
+    <footer class="app-footer">
+      <span>HomeFix</span>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="booking.html">Booking</a>
+        <a href="workers.html">Workers</a>
+        <a href="history.html">History</a>
+        <a href="track.html">Track</a>
+        <a href="notifications.html">Notifications</a>
+        <a href="payment.html">Payment</a>
+        <a href="reviews.html">Customer Reviews</a>
+        <a href="support.html">Support</a>
+        <a href="admin.html">Admin</a>
+        <a href="profile.html">Profile</a>
+        <a href="login.html">Login</a>
+        <a href="signup.html">Signup</a>
+      </nav>
+    </footer>
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script src="booking.js"></script>
+  </body>
+</html>

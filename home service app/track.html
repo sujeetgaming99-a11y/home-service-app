@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Track Worker - HomeFix</title>
+    <link rel="stylesheet" href="track.css" />
+  </head>
+  <body>
+    <header class="track-header">
+      <nav class="track-nav" aria-label="Tracking navigation">
+        <a class="brand" href="index.html" aria-label="HomeFix home">
+          <span class="brand-mark">HF</span>
+          <span>HomeFix</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="booking.html">Booking</a>
+          <a href="workers.html">Workers</a>
+          <a href="history.html">History</a>
+          <a href="track.html">Track</a>
+          <a href="notifications.html">Notifications</a>
+          <a href="payment.html">Payment</a>
+          <a href="reviews.html">Customer Reviews</a>
+          <a href="support.html">Support</a>
+          <a href="admin.html">Admin</a>
+          <a href="profile.html">Profile</a>
+          <a href="login.html">Login</a>
+          <a href="signup.html">Signup</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="track-page">
+      <section class="page-intro">
+        <p class="eyebrow">Live tracking</p>
+        <h1>Track your worker</h1>
+        <p>View your latest active booking, assigned worker, and service progress.</p>
+      </section>
+
+      <section class="empty-panel is-hidden" id="emptyState">
+        <h2>No active booking found</h2>
+        <p>Create a booking first, then return here to track the assigned worker.</p>
+        <a href="booking.html">Book a Service</a>
+      </section>
+
+      <section class="track-layout is-hidden" id="trackContent">
+        <article class="tracking-card">
+          <p class="assigned-message" id="assignedMessage">Worker assigned for your booking.</p>
+          <div class="worker-card">
+            <span class="worker-avatar" id="workerInitials">HF</span>
+            <div>
+              <h2 id="workerName">Worker Name</h2>
+              <p id="workerService">Service type</p>
+              <p id="workerPhone">Phone number</p>
+            </div>
+          </div>
+
+          <div class="action-row">
+            <a class="call-button" id="callWorker" href="#">Call Worker</a>
+            <a class="pay-button" id="payNow" href="payment.html">Pay Now</a>
+            <button class="cancel-button" id="cancelBooking" type="button">Cancel Booking</button>
+          </div>
+          <p class="status-message" id="statusMessage" role="status" aria-live="polite"></p>
+        </article>
+
+        <article class="tracking-card">
+          <div class="panel-heading">
+            <h2>Booking status timeline</h2>
+          </div>
+          <ol class="timeline" id="timeline"></ol>
+          <button class="next-status-button" id="nextStatusButton" type="button">Move to Next Status</button>
+        </article>
+
+        <article class="tracking-card booking-details-card">
+          <div class="panel-heading">
+            <h2>Current booking</h2>
+          </div>
+          <dl class="booking-details" id="bookingDetails"></dl>
+        </article>
+      </section>
+    </main>
+    <footer class="app-footer">
+      <span>HomeFix</span>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="booking.html">Booking</a>
+        <a href="workers.html">Workers</a>
+        <a href="history.html">History</a>
+        <a href="track.html">Track</a>
+        <a href="notifications.html">Notifications</a>
+        <a href="payment.html">Payment</a>
+        <a href="reviews.html">Customer Reviews</a>
+        <a href="support.html">Support</a>
+        <a href="admin.html">Admin</a>
+        <a href="profile.html">Profile</a>
+        <a href="login.html">Login</a>
+        <a href="signup.html">Signup</a>
+      </nav>
+    </footer>
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script src="track.js"></script>
+  </body>
+</html>

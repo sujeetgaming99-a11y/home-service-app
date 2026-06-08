@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile - HomeFix</title>
+    <link rel="stylesheet" href="profile.css" />
+  </head>
+  <body data-page="profile">
+    <header class="profile-header">
+      <nav class="profile-nav" aria-label="Profile navigation">
+        <a class="brand" href="index.html" aria-label="HomeFix home">
+          <span class="brand-mark">HF</span>
+          <span>HomeFix</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="booking.html">Booking</a>
+          <a href="workers.html">Workers</a>
+          <a href="history.html">History</a>
+          <a href="track.html">Track</a>
+          <a href="notifications.html">Notifications</a>
+          <a href="payment.html">Payment</a>
+          <a href="reviews.html">Customer Reviews</a>
+          <a href="support.html">Support</a>
+          <a href="admin.html">Admin</a>
+          <a href="profile.html">Profile</a>
+          <a href="login.html">Login</a>
+          <a href="signup.html">Signup</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="profile-page">
+      <section class="page-intro">
+        <p class="eyebrow">Account</p>
+        <h1>User Profile</h1>
+        <p>Manage contact details, saved addresses, payment preferences, and notifications.</p>
+      </section>
+
+      <section class="profile-grid">
+        <article class="panel user-panel">
+          <div class="panel-heading">
+            <h2>User details</h2>
+            <button class="logout-button" id="logoutButton" type="button">Logout</button>
+          </div>
+          <div class="user-card">
+            <span class="user-avatar">HF</span>
+            <div>
+              <h3 id="profileName">HomeFix User</h3>
+              <p id="profileEmail">user@homefix.example</p>
+              <p id="profilePhone">+91 98765 43210</p>
+            </div>
+          </div>
+          <form class="profile-form" id="userDetailsForm">
+            <div class="form-field">
+              <label for="userNameInput">Name</label>
+              <input id="userNameInput" type="text" placeholder="Your name" required />
+            </div>
+            <div class="form-field">
+              <label for="userEmailInput">Email</label>
+              <input id="userEmailInput" type="email" placeholder="you@example.com" required />
+            </div>
+            <div class="form-field">
+              <label for="userPhoneInput">Phone</label>
+              <input id="userPhoneInput" type="tel" placeholder="Phone number" required />
+            </div>
+            <button type="submit">Save Details</button>
+            <p class="form-status" id="userDetailsStatus" role="status" aria-live="polite"></p>
+          </form>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <h2>Saved addresses</h2>
+          </div>
+          <form class="address-form" id="addressForm">
+            <div class="form-field">
+              <label for="addressLabelInput">Label</label>
+              <input id="addressLabelInput" type="text" placeholder="Home, Work, etc." required />
+            </div>
+            <div class="form-field">
+              <label for="addressTextInput">Address</label>
+              <input id="addressTextInput" type="text" placeholder="Full address" required />
+            </div>
+            <button type="submit">Add Address</button>
+          </form>
+          <div class="address-list" id="addressList"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <h2>Payment methods</h2>
+          </div>
+          <form class="payment-form" id="paymentForm">
+            <label for="paymentType">Payment type</label>
+            <div class="payment-fields">
+              <select id="paymentType" required>
+                <option value="Card">Card</option>
+                <option value="UPI">UPI</option>
+                <option value="Cash">Cash</option>
+              </select>
+              <input id="paymentValue" type="text" placeholder="Card ending 1234 or UPI ID" required />
+              <button type="submit">Add</button>
+            </div>
+          </form>
+          <div class="payment-list" id="paymentList"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <h2>Notifications</h2>
+          </div>
+          <div class="settings-list">
+            <label class="setting-row">
+              <span>
+                <strong>Booking updates</strong>
+                <small>Get confirmation and status alerts</small>
+              </span>
+              <input type="checkbox" checked />
+            </label>
+            <label class="setting-row">
+              <span>
+                <strong>Worker arrival alerts</strong>
+                <small>Know when your expert is nearby</small>
+              </span>
+              <input type="checkbox" checked />
+            </label>
+            <label class="setting-row">
+              <span>
+                <strong>Offers and reminders</strong>
+                <small>Receive seasonal service suggestions</small>
+              </span>
+              <input type="checkbox" />
+            </label>
+          </div>
+        </article>
+      </section>
+    </main>
+    <footer class="app-footer">
+      <span>HomeFix</span>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="booking.html">Booking</a>
+        <a href="workers.html">Workers</a>
+        <a href="history.html">History</a>
+        <a href="track.html">Track</a>
+        <a href="notifications.html">Notifications</a>
+        <a href="payment.html">Payment</a>
+        <a href="reviews.html">Customer Reviews</a>
+        <a href="support.html">Support</a>
+        <a href="admin.html">Admin</a>
+        <a href="profile.html">Profile</a>
+        <a href="login.html">Login</a>
+        <a href="signup.html">Signup</a>
+      </nav>
+    </footer>
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script src="profile.js"></script>
+  </body>
+</html>

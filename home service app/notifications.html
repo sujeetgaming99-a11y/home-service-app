@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notifications - HomeFix</title>
+    <link rel="stylesheet" href="notifications.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <nav class="app-nav" aria-label="Notifications navigation">
+        <a class="brand" href="index.html" aria-label="HomeFix home">
+          <span class="brand-mark">HF</span>
+          <span>HomeFix</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="booking.html">Booking</a>
+          <a href="workers.html">Workers</a>
+          <a href="history.html">History</a>
+          <a href="track.html">Track</a>
+          <a href="notifications.html">Notifications</a>
+          <a href="payment.html">Payment</a>
+          <a href="reviews.html">Customer Reviews</a>
+          <a href="support.html">Support</a>
+          <a href="admin.html">Admin</a>
+          <a href="profile.html">Profile</a>
+          <a href="login.html">Login</a>
+          <a href="signup.html">Signup</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="notifications-page">
+      <section class="page-intro">
+        <p class="eyebrow">Updates</p>
+        <h1>Notifications</h1>
+        <p>See booking, tracking, payment, and support updates saved on this device.</p>
+      </section>
+
+      <section class="notification-actions">
+        <button type="button" id="markAllRead">Mark All Read</button>
+        <button class="secondary-button" type="button" id="clearRead">Clear Read</button>
+      </section>
+
+      <section class="notifications-list" id="notificationsList" aria-live="polite"></section>
+    </main>
+
+    <footer class="app-footer">
+      <span>HomeFix</span>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="booking.html">Booking</a>
+        <a href="workers.html">Workers</a>
+        <a href="history.html">History</a>
+        <a href="track.html">Track</a>
+        <a href="notifications.html">Notifications</a>
+        <a href="payment.html">Payment</a>
+        <a href="reviews.html">Customer Reviews</a>
+        <a href="support.html">Support</a>
+        <a href="admin.html">Admin</a>
+        <a href="profile.html">Profile</a>
+        <a href="login.html">Login</a>
+        <a href="signup.html">Signup</a>
+      </nav>
+    </footer>
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script src="notifications.js"></script>
+  </body>
+</html>
