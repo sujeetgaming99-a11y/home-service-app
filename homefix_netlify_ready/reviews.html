@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customer Reviews - HomeFix</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="theme.css?v=8" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="navbar" aria-label="Reviews navigation">
+        <a class="logo" href="index.html" aria-label="HomeFix home">
+          <span class="logo-mark">HF</span>
+          <span>HomeFix</span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="nav-links" id="navLinks">
+          <a href="index.html">Home</a>
+          <a href="booking.html">Booking</a>
+          <a href="workers.html">Workers</a>
+          <a href="worker-dashboard.html">Worker Dashboard</a>
+          <a href="history.html">History</a>
+          <a href="track.html">Track</a>
+          <a href="notifications.html">Notifications</a>
+          <a href="payment.html">Payment</a>
+          <a href="reviews.html">Customer Reviews</a>
+          <a href="support.html">Support</a>
+          <a href="admin.html">Admin</a>
+          <a href="profile.html">Profile</a>
+          <a href="login.html">Login</a>
+          <a href="signup.html">Signup</a>
+        </div>
+
+        <a class="header-cta" href="booking.html">Book Now</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="reviews-section" id="reviews">
+        <div class="section-heading">
+          <p class="eyebrow">Customer reviews</p>
+          <h2>What HomeFix customers say</h2>
+        </div>
+
+        <button class="write-review-button" id="writeReviewButton" type="button">Write a Review</button>
+
+        <form class="review-form is-hidden" id="reviewForm">
+          <div class="review-form-grid">
+            <div class="field-group">
+              <label for="reviewName">Customer Name</label>
+              <input id="reviewName" type="text" placeholder="Your name" required />
+            </div>
+            <div class="field-group">
+              <label for="reviewService">Service Used</label>
+              <select id="reviewService" required>
+                <option value="">Choose service</option>
+                <option>Plumber</option>
+                <option>Electrician</option>
+                <option>Carpenter</option>
+                <option>Painter</option>
+                <option>AC Repair</option>
+                <option>Cleaning</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="reviewRating">Rating</label>
+              <select id="reviewRating" required>
+                <option value="">1-5 stars</option>
+                <option value="5">5 stars</option>
+                <option value="4">4 stars</option>
+                <option value="3">3 stars</option>
+                <option value="2">2 stars</option>
+                <option value="1">1 star</option>
+              </select>
+            </div>
+            <div class="field-group full">
+              <label for="reviewText">Review Text</label>
+              <textarea id="reviewText" rows="4" placeholder="Share your experience" required></textarea>
+            </div>
+          </div>
+          <button type="submit">Submit Review</button>
+          <p class="review-message" id="reviewMessage" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="reviews-grid" id="reviewsGrid"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <a class="logo footer-logo" href="index.html">
+          <span class="logo-mark">HF</span>
+          <span>HomeFix</span>
+        </a>
+        <p>Fast, verified home services for modern households.</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="booking.html">Booking</a>
+        <a href="workers.html">Workers</a>
+        <a href="profile.html">Profile</a>
+      </div>
+    </footer>
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script src="nav.js"></script>
+
+
+    <script src="script.js"></script>
+  </body>
+</html>

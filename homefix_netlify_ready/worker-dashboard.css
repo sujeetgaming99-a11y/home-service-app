@@ -1,0 +1,328 @@
+:root {
+  --ink: #172326;
+  --muted: #627274;
+  --line: #ded8c9;
+  --paper: #fffdf8;
+  --soft: #f4f1e8;
+  --teal: #0f766e;
+  --teal-dark: #07534d;
+  --coral: #c45d3c;
+  --shadow: 0 18px 45px rgba(32, 42, 39, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--soft);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255, 253, 248, 0.94);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(16px);
+}
+
+.app-nav {
+  width: min(1180px, calc(100% - 32px));
+  min-height: 66px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 900;
+}
+
+.brand-mark {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  color: #fff;
+  background: var(--teal);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.worker-dashboard-page {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 58px 0 40px;
+}
+
+.dashboard-intro {
+  max-width: 760px;
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--teal);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dashboard-intro h1 {
+  margin: 10px 0 12px;
+  font-size: clamp(2.2rem, 6vw, 4.2rem);
+  line-height: 1;
+}
+
+.dashboard-intro p:not(.eyebrow) {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.06rem;
+}
+
+.worker-selector-panel,
+.job-section,
+.job-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.worker-selector-panel {
+  padding: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) minmax(220px, 0.8fr);
+  gap: 14px;
+  align-items: end;
+}
+
+.field {
+  display: grid;
+  gap: 7px;
+}
+
+.field label {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+.field select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fbfcfd;
+}
+
+.worker-summary {
+  min-height: 46px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  color: var(--teal-dark);
+  background: #f0fbf8;
+  font-weight: 900;
+}
+
+.job-section {
+  margin-top: 22px;
+  padding: 20px;
+}
+
+.section-heading {
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.section-heading h2 {
+  margin: 0;
+}
+
+.section-heading span {
+  color: var(--teal-dark);
+  font-weight: 900;
+}
+
+.job-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.job-card {
+  padding: 16px;
+}
+
+.job-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.job-card h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.status-pill {
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: var(--teal-dark);
+  background: #f0fbf8;
+  font-size: 0.76rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.job-details {
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.job-details div {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 10px;
+}
+
+.job-details dt {
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.job-details dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.job-actions,
+.status-actions {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.job-actions button,
+.status-actions button {
+  min-height: 40px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 10px;
+  color: #fff;
+  background: var(--teal);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.job-actions .reject-job {
+  color: var(--coral);
+  background: #fff7f2;
+  border: 1px solid rgba(196, 93, 60, 0.22);
+}
+
+.status-actions button {
+  color: var(--teal-dark);
+  background: #f0fbf8;
+  border: 1px solid rgba(15, 118, 110, 0.18);
+}
+
+.status-actions button.active {
+  color: #fff;
+  background: var(--teal);
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 20px;
+  color: var(--muted);
+  background: #fbfcfd;
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  font-weight: 900;
+}
+
+.toast-container {
+  position: fixed;
+  right: 18px;
+  bottom: 82px;
+  z-index: 100;
+  display: grid;
+  gap: 10px;
+}
+
+.toast {
+  max-width: 340px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  color: #fff;
+  background: var(--teal-dark);
+  box-shadow: var(--shadow);
+  font-weight: 800;
+}
+
+.toast.error {
+  background: var(--coral);
+}
+
+@media (max-width: 860px) {
+  .worker-selector-panel,
+  .job-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .job-details div {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
+
+@media (max-width: 560px) {
+  .worker-dashboard-page {
+    width: min(100% - 24px, 1180px);
+    padding-top: 36px;
+  }
+
+  .dashboard-intro h1 {
+    font-size: 2.4rem;
+  }
+}

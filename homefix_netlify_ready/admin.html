@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - HomeFix</title>
+    <link rel="stylesheet" href="admin.css" />
+    <link rel="stylesheet" href="theme.css?v=8" />
+  </head>
+  <body>
+    <header class="admin-header">
+      <nav class="admin-nav" aria-label="Admin navigation">
+        <a class="brand" href="index.html" aria-label="HomeFix home">
+          <span class="brand-mark">HF</span>
+          <span>HomeFix Admin</span>
+        </a>
+        <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="booking.html">Booking</a>
+          <a href="workers.html">Workers</a>
+          <a href="worker-dashboard.html">Worker Dashboard</a>
+          <a href="history.html">History</a>
+          <a href="track.html">Track</a>
+          <a href="notifications.html">Notifications</a>
+          <a href="payment.html">Payment</a>
+          <a href="reviews.html">Customer Reviews</a>
+          <a href="support.html">Support</a>
+          <a href="admin.html">Admin</a>
+          <a href="profile.html">Profile</a>
+          <a href="login.html">Login</a>
+          <a href="signup.html">Signup</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="admin-page">
+      <section class="page-intro">
+        <p class="eyebrow">Dashboard</p>
+        <h1>Admin Dashboard</h1>
+        <p>Monitor bookings, update service status, and manage worker profiles from local browser data.</p>
+      </section>
+
+      <section class="stats-grid" aria-label="Admin dashboard stats">
+        <article class="stat-card">
+          <span>Total bookings</span>
+          <strong id="totalBookings">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Total users</span>
+          <strong id="totalUsers">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Total workers</span>
+          <strong id="totalWorkers">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Total revenue</span>
+          <strong id="totalRevenue">₹0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Open support</span>
+          <strong id="openSupport">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Paid bookings</span>
+          <strong id="paidBookings">0</strong>
+        </article>
+      </section>
+
+      <section class="admin-panel">
+        <div class="panel-heading">
+          <h2>Recent bookings</h2>
+        </div>
+        <div class="table-wrap">
+          <table class="bookings-table">
+            <thead>
+              <tr>
+                <th>Booking ID</th>
+                <th>Service</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Phone</th>
+                <th>Manual Assign</th>
+                <th>Assigned Worker</th>
+                <th>Worker Response</th>
+                <th>Payment</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="recentBookings"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="admin-panel">
+        <div class="panel-heading">
+          <h2>Support Requests</h2>
+        </div>
+        <div class="table-wrap">
+          <table class="bookings-table support-table">
+            <thead>
+              <tr>
+                <th>Ticket ID</th>
+                <th>User Name</th>
+                <th>Category</th>
+                <th>Message</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="supportRequestsTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="admin-panel">
+        <div class="panel-heading">
+          <h2>Payments</h2>
+        </div>
+        <div class="table-wrap">
+          <table class="bookings-table payments-admin-table">
+            <thead>
+              <tr>
+                <th>Payment ID</th>
+                <th>Booking ID</th>
+                <th>Service</th>
+                <th>Amount</th>
+                <th>Method</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="paymentsTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="admin-panel">
+        <div class="panel-heading">
+          <h2>Notifications</h2>
+        </div>
+        <div class="table-wrap">
+          <table class="bookings-table notifications-admin-table">
+            <thead>
+              <tr>
+                <th>Notification ID</th>
+                <th>Type</th>
+                <th>Title</th>
+                <th>Message</th>
+                <th>Date</th>
+                <th>Read</th>
+              </tr>
+            </thead>
+            <tbody id="notificationsTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="admin-panel service-uploads-panel">
+        <div class="panel-heading">
+          <h2>Uploaded Service Photos</h2>
+          <button class="toggle-service-uploads" id="toggleServiceUploads" type="button" aria-expanded="false">Show Photos</button>
+        </div>
+        <div class="service-upload-list is-hidden" id="serviceUploadsList"></div>
+      </section>
+
+      <section class="admin-panel">
+        <div class="panel-heading">
+          <h2>Manage workers</h2>
+        </div>
+
+        <form class="worker-form" id="workerForm">
+          <input id="editingWorkerId" type="hidden" />
+          <div class="field">
+            <label for="workerName">Name</label>
+            <input id="workerName" type="text" placeholder="Worker name" required />
+          </div>
+          <div class="field">
+            <label for="workerService">Service type</label>
+            <select id="workerService" required>
+              <option value="">Choose service</option>
+              <option>Plumber</option>
+              <option>Electrician</option>
+              <option>Carpenter</option>
+              <option>Painter</option>
+              <option>AC Repair</option>
+              <option>Cleaning</option>
+              <option>Appliance Repair</option>
+              <option>Home Maintenance</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="workerPhone">Phone number</label>
+            <input id="workerPhone" type="tel" placeholder="+911234567890" required />
+          </div>
+          <div class="field">
+            <label for="workerExperience">Experience</label>
+            <input id="workerExperience" type="text" placeholder="5 years" required />
+          </div>
+          <div class="field">
+            <label for="workerRating">Rating</label>
+            <input id="workerRating" type="number" min="1" max="5" step="0.1" placeholder="4.8" required />
+          </div>
+          <div class="field">
+            <label for="workerPrice">Price</label>
+            <input id="workerPrice" type="number" min="1" placeholder="499" required />
+          </div>
+          <button id="workerSubmitButton" type="submit">Add Worker</button>
+          <button class="cancel-edit-button is-hidden" id="cancelWorkerEdit" type="button">Cancel Edit</button>
+          <p class="form-status" id="workerStatus" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="worker-list" id="workerList"></div>
+      </section>
+
+      <section class="admin-panel ticket-detail-panel is-hidden" id="adminTicketDetailPanel" aria-labelledby="adminTicketDetailTitle">
+        <div class="panel-heading detail-heading">
+          <h2 id="adminTicketDetailTitle">Support Ticket Details</h2>
+          <button class="close-detail-button" id="closeAdminTicketDetail" type="button">Close</button>
+        </div>
+        <dl class="ticket-details" id="adminTicketDetailContent"></dl>
+      </section>
+    </main>
+    <footer class="app-footer">
+      <span>HomeFix Admin</span>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="booking.html">Booking</a>
+        <a href="workers.html">Workers</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+    </footer>
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script src="nav.js"></script>
+
+
+    <script src="admin.js"></script>
+  </body>
+</html>

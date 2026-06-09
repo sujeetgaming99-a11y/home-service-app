@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment - HomeFix</title>
+    <link rel="stylesheet" href="payment.css" />
+    <link rel="stylesheet" href="theme.css?v=8" />
+  </head>
+  <body>
+    <header class="app-header">
+      <nav class="app-nav" aria-label="Payment navigation">
+        <a class="brand" href="index.html" aria-label="HomeFix home">
+          <span class="brand-mark">HF</span>
+          <span>HomeFix</span>
+        </a>
+        <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="booking.html">Booking</a>
+          <a href="workers.html">Workers</a>
+          <a href="worker-dashboard.html">Worker Dashboard</a>
+          <a href="history.html">History</a>
+          <a href="track.html">Track</a>
+          <a href="notifications.html">Notifications</a>
+          <a href="payment.html">Payment</a>
+          <a href="reviews.html">Customer Reviews</a>
+          <a href="support.html">Support</a>
+          <a href="admin.html">Admin</a>
+          <a href="profile.html">Profile</a>
+          <a href="login.html">Login</a>
+          <a href="signup.html">Signup</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="payment-page">
+      <section class="page-intro">
+        <p class="eyebrow">Secure checkout</p>
+        <h1>Payment</h1>
+        <p>Pay for confirmed HomeFix bookings and keep a local payment history.</p>
+      </section>
+
+      <section class="payment-layout">
+        <form class="payment-panel" id="paymentForm">
+          <div class="panel-heading">
+            <h2>Make Payment</h2>
+          </div>
+
+          <div class="field">
+            <label for="bookingSelect">Select booking</label>
+            <select id="bookingSelect" required></select>
+          </div>
+
+          <div class="booking-summary" id="paymentBookingSummary"></div>
+
+          <div class="field">
+            <label for="paymentMethod">Payment method</label>
+            <select id="paymentMethod" required>
+              <option value="UPI">UPI</option>
+              <option value="Card">Card</option>
+              <option value="Cash">Cash</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="payerName">Payer name</label>
+            <input id="payerName" type="text" placeholder="Your name" required />
+          </div>
+
+          <div class="price-box">
+            <span>Total Amount</span>
+            <strong id="paymentAmount">₹0</strong>
+          </div>
+
+          <button type="submit">Pay Now</button>
+          <p class="success-message" id="paymentMessage" role="status" aria-live="polite"></p>
+        </form>
+
+        <aside class="payment-panel">
+          <div class="panel-heading">
+            <h2>Payment Summary</h2>
+          </div>
+          <dl class="summary-list" id="latestPaymentSummary"></dl>
+        </aside>
+      </section>
+
+      <section class="payment-history-section">
+        <div class="panel-heading">
+          <h2>Payment History</h2>
+        </div>
+        <div class="table-wrap">
+          <table class="payments-table">
+            <thead>
+              <tr>
+                <th>Payment ID</th>
+                <th>Booking ID</th>
+                <th>Service</th>
+                <th>Amount</th>
+                <th>Method</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="paymentHistory"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <span>HomeFix</span>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="booking.html">Booking</a>
+        <a href="workers.html">Workers</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+    </footer>
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script src="nav.js"></script>
+
+
+    <script src="payment.js"></script>
+  </body>
+</html>

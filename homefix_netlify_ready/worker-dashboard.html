@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Worker Dashboard - HomeFix</title>
+    <link rel="stylesheet" href="worker-dashboard.css" />
+    <link rel="stylesheet" href="theme.css?v=8" />
+  </head>
+  <body>
+    <header class="app-header">
+      <nav class="app-nav" aria-label="Worker dashboard navigation">
+        <a class="brand" href="index.html" aria-label="HomeFix home">
+          <span class="brand-mark">HF</span>
+          <span>HomeFix</span>
+        </a>
+        <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="booking.html">Booking</a>
+          <a href="workers.html">Workers</a>
+          <a href="worker-dashboard.html">Worker Dashboard</a>
+          <a href="history.html">History</a>
+          <a href="track.html">Track</a>
+          <a href="notifications.html">Notifications</a>
+          <a href="payment.html">Payment</a>
+          <a href="reviews.html">Customer Reviews</a>
+          <a href="support.html">Support</a>
+          <a href="admin.html">Admin</a>
+          <a href="profile.html">Profile</a>
+          <a href="login.html">Login</a>
+          <a href="signup.html">Signup</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="worker-dashboard-page">
+      <section class="dashboard-intro">
+        <p class="eyebrow">Worker jobs</p>
+        <h1>Accept nearby service requests</h1>
+        <p>Choose your worker profile and service type to see matching customer requests.</p>
+      </section>
+
+      <section class="worker-selector-panel">
+        <div class="field">
+          <label for="workerNameSelect">Worker name</label>
+          <select id="workerNameSelect">
+            <option value="">Select worker</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="workerServiceSelect">Service type</label>
+          <select id="workerServiceSelect">
+            <option value="">Select service</option>
+          </select>
+        </div>
+        <div class="worker-summary" id="workerSummary">Select a worker to view job requests.</div>
+      </section>
+
+      <section class="job-section">
+        <div class="section-heading">
+          <h2>Available Requests</h2>
+          <span id="jobCount">0 jobs</span>
+        </div>
+        <div class="job-grid" id="jobGrid">
+          <p class="empty-state">Select worker details to load matching requests.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <span>HomeFix</span>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="booking.html">Booking</a>
+        <a href="workers.html">Workers</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+    </footer>
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script src="nav.js"></script>
+    <script src="worker-dashboard.js"></script>
+  </body>
+</html>

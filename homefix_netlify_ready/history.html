@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking History - HomeFix</title>
+    <link rel="stylesheet" href="profile.css" />
+    <link rel="stylesheet" href="theme.css?v=8" />
+  </head>
+  <body data-page="history">
+    <header class="profile-header">
+      <nav class="profile-nav" aria-label="History navigation">
+        <a class="brand" href="index.html" aria-label="HomeFix home">
+          <span class="brand-mark">HF</span>
+          <span>HomeFix</span>
+        </a>
+        <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="booking.html">Booking</a>
+          <a href="workers.html">Workers</a>
+          <a href="worker-dashboard.html">Worker Dashboard</a>
+          <a href="history.html">History</a>
+          <a href="track.html">Track</a>
+          <a href="notifications.html">Notifications</a>
+          <a href="payment.html">Payment</a>
+          <a href="reviews.html">Customer Reviews</a>
+          <a href="support.html">Support</a>
+          <a href="admin.html">Admin</a>
+          <a href="profile.html">Profile</a>
+          <a href="login.html">Login</a>
+          <a href="signup.html">Signup</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="profile-page">
+      <section class="page-intro">
+        <p class="eyebrow">Bookings</p>
+        <h1>Booking History</h1>
+        <p>Review all service bookings saved on this device.</p>
+      </section>
+
+      <section class="history-layout">
+        <article class="panel">
+          <div class="panel-heading">
+            <h2>Booking history from localStorage</h2>
+            <a class="small-action" href="booking.html">New Booking</a>
+          </div>
+          <div class="history-list" id="historyList"></div>
+        </article>
+      </section>
+    </main>
+    <footer class="app-footer">
+      <span>HomeFix</span>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="booking.html">Booking</a>
+        <a href="workers.html">Workers</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+    </footer>
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script src="nav.js"></script>
+
+
+    <script src="profile.js"></script>
+  </body>
+</html>

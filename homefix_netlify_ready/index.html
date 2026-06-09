@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HomeFix - Trusted Home Services</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="theme.css?v=8" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="navbar" aria-label="Main navigation">
+        <a class="logo" href="index.html" aria-label="HomeFix home">
+          <span class="logo-mark">HF</span>
+          <span>HomeFix</span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="nav-links" id="navLinks">
+          <a href="index.html">Home</a>
+          <a href="booking.html">Booking</a>
+          <a href="workers.html">Workers</a>
+          <a href="worker-dashboard.html">Worker Dashboard</a>
+          <a href="history.html">History</a>
+          <a href="track.html">Track</a>
+          <a href="notifications.html">Notifications</a>
+          <a href="payment.html">Payment</a>
+          <a href="reviews.html">Customer Reviews</a>
+          <a href="support.html">Support</a>
+          <a href="admin.html">Admin</a>
+          <a href="profile.html">Profile</a>
+          <a href="login.html">Login</a>
+          <a href="signup.html">Signup</a>
+        </div>
+
+        <a class="header-cta" href="booking.html">Book Now</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="book">
+        <div class="hero-content">
+          <p class="eyebrow">Verified professionals near you</p>
+          <h1>Book trusted home services in 30 minutes</h1>
+          <p class="hero-copy">
+            Skilled plumbers, electricians, cleaners, painters, and repair experts ready when your home needs them.
+          </p>
+
+          <form class="search-bar" id="searchForm">
+            <label class="sr-only" for="serviceSearch">Search for a service</label>
+            <input id="serviceSearch" type="search" placeholder="What service do you need?" autocomplete="off" />
+            <button type="submit">Search</button>
+          </form>
+
+          <form class="booking-form" id="bookingForm" aria-label="Book a home service">
+            <div class="field-group">
+              <label for="bookingService">Service</label>
+              <select id="bookingService" required>
+                <option value="">Choose service</option>
+                <option>Plumber</option>
+                <option>Electrician</option>
+                <option>Carpenter</option>
+              <option>Painter</option>
+              <option>AC Repair</option>
+              <option>Cleaning</option>
+              <option>Appliance Repair</option>
+              <option>Home Maintenance</option>
+            </select>
+            </div>
+            <div class="field-group">
+              <label for="bookingLocation">Location</label>
+              <input id="bookingLocation" type="text" placeholder="Enter your area" required />
+            </div>
+            <div class="field-group">
+              <label for="bookingTime">Time</label>
+              <select id="bookingTime" required>
+                <option value="">Choose time</option>
+                <option>Next 30 minutes</option>
+                <option>Today afternoon</option>
+                <option>Today evening</option>
+                <option>Tomorrow morning</option>
+              </select>
+            </div>
+            <button type="submit">Book Service</button>
+            <p class="booking-message" id="bookingMessage" role="status" aria-live="polite"></p>
+          </form>
+
+          <div class="hero-stats" aria-label="Service highlights">
+            <div>
+              <strong>4.9/5</strong>
+              <span>Average rating</span>
+            </div>
+            <div>
+              <strong>25k+</strong>
+              <span>Jobs completed</span>
+            </div>
+            <div>
+              <strong>30 min</strong>
+              <span>Fast booking</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-panel" aria-label="Today's service availability">
+          <img
+            class="hero-image"
+            src="assets/hero-home.jpg.png"
+            alt="HomeFix professional arriving for a home service"
+            width="960"
+            height="640"
+            fetchpriority="high"
+          />
+        </div>
+      </section>
+
+      <section class="section" id="services">
+        <div class="section-heading">
+          <p class="eyebrow">Browse categories</p>
+          <h2>Services for every corner of your home</h2>
+        </div>
+
+        <div class="category-grid service-grid">
+          <button class="category-card service-card" type="button" data-service="Plumber">
+            <img class="service-image" src="assets/plumber.jpg.jpg" alt="Plumber service" width="520" height="320" loading="lazy" />
+            <strong>Plumber</strong>
+            <small>₹299 - ₹799</small>
+          </button>
+          <button class="category-card service-card" type="button" data-service="Electrician">
+            <img class="service-image" src="assets/electrician.jpg.jpg" alt="Electrician service" width="520" height="320" loading="lazy" />
+            <strong>Electrician</strong>
+            <small>₹299 - ₹999</small>
+          </button>
+          <button class="category-card service-card" type="button" data-service="Carpenter">
+            <img class="service-image" src="assets/carpenter.jpg.jpg" alt="Carpenter service" width="520" height="320" loading="lazy" />
+            <strong>Carpenter</strong>
+            <small>₹399 - ₹1,499</small>
+          </button>
+          <button class="category-card service-card" type="button" data-service="Painter">
+            <img class="service-image" src="assets/painter.jpg.jpg" alt="Painter service" width="520" height="320" loading="lazy" />
+            <strong>Painter</strong>
+            <small>₹999 - ₹9,999</small>
+          </button>
+          <button class="category-card service-card" type="button" data-service="AC Repair">
+            <img class="service-image" src="assets/ac-repair.jpg.jpg" alt="AC repair service" width="520" height="320" loading="lazy" />
+            <strong>AC Repair</strong>
+            <small>₹499 - ₹2,499</small>
+          </button>
+          <button class="category-card service-card" type="button" data-service="Cleaning">
+            <img class="service-image" src="assets/cleaning.jpg.jpg" alt="Cleaning service" width="520" height="320" loading="lazy" />
+            <strong>Cleaning</strong>
+            <small>₹399 - ₹1,999</small>
+          </button>
+          <button class="category-card service-card" type="button" data-service="Appliance Repair">
+            <img class="service-image" src="assets/appliance-repair.jpg.jpg" alt="Appliance repair service" width="520" height="320" loading="lazy" />
+            <strong>Appliance Repair</strong>
+            <small>₹499 - ₹1,999</small>
+          </button>
+          <button class="category-card service-card" type="button" data-service="Home Maintenance">
+            <img class="service-image" src="assets/home-maintenance.jpg.jpg" alt="Home maintenance service" width="520" height="320" loading="lazy" />
+            <strong>Home Maintenance</strong>
+            <small>₹599 - ₹2,999</small>
+          </button>
+        </div>
+
+      <section class="section nearby-section" id="nearby-providers">
+        <div class="section-heading">
+          <p class="eyebrow">Nearby experts</p>
+          <h2>Nearby Service Providers</h2>
+        </div>
+
+        <div class="provider-grid">
+          <article class="provider-card">
+            <img src="assets/worker-rahul.svg" alt="Rahul Sharma plumber" width="96" height="96" loading="lazy" />
+            <div class="provider-info">
+              <div>
+                <h3>Rahul Sharma</h3>
+                <p>Plumber</p>
+              </div>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="provider-meta">
+              <span class="rating-stars">★★★★★ <strong>4.9</strong></span>
+              <span>1.2 km away</span>
+              <span>Starts at &#8377;299</span>
+            </div>
+            <div class="provider-actions">
+              <a href="workers.html">View Profile</a>
+              <button type="button" data-provider-book="Plumber">Book Now</button>
+            </div>
+          </article>
+
+          <article class="provider-card">
+            <img src="assets/worker-amit.svg" alt="Amit Verma electrician" width="96" height="96" loading="lazy" />
+            <div class="provider-info">
+              <div>
+                <h3>Amit Verma</h3>
+                <p>Electrician</p>
+              </div>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="provider-meta">
+              <span class="rating-stars">★★★★★ <strong>4.8</strong></span>
+              <span>1.8 km away</span>
+              <span>Starts at &#8377;299</span>
+            </div>
+            <div class="provider-actions">
+              <a href="workers.html">View Profile</a>
+              <button type="button" data-provider-book="Electrician">Book Now</button>
+            </div>
+          </article>
+
+          <article class="provider-card">
+            <img src="assets/worker-karan.svg" alt="Karan Mehta carpenter" width="96" height="96" loading="lazy" />
+            <div class="provider-info">
+              <div>
+                <h3>Karan Mehta</h3>
+                <p>Carpenter</p>
+              </div>
+              <span class="availability busy">Busy</span>
+            </div>
+            <div class="provider-meta">
+              <span class="rating-stars">★★★★☆ <strong>4.7</strong></span>
+              <span>2.4 km away</span>
+              <span>Starts at &#8377;399</span>
+            </div>
+            <div class="provider-actions">
+              <a href="workers.html">View Profile</a>
+              <button type="button" data-provider-book="Carpenter">Book Now</button>
+            </div>
+          </article>
+
+          <article class="provider-card">
+            <img src="assets/worker-sameer.svg" alt="Sameer Khan AC technician" width="96" height="96" loading="lazy" />
+            <div class="provider-info">
+              <div>
+                <h3>Sameer Khan</h3>
+                <p>AC Technician</p>
+              </div>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="provider-meta">
+              <span class="rating-stars">★★★★★ <strong>4.9</strong></span>
+              <span>3.1 km away</span>
+              <span>Starts at &#8377;499</span>
+            </div>
+            <div class="provider-actions">
+              <a href="workers.html">View Profile</a>
+              <button type="button" data-provider-book="AC Repair">Book Now</button>
+            </div>
+          </article>
+
+          <article class="provider-card">
+            <img src="assets/worker-priya.svg" alt="Priya Nair cleaning specialist" width="96" height="96" loading="lazy" />
+            <div class="provider-info">
+              <div>
+                <h3>Priya Nair</h3>
+                <p>Cleaning Specialist</p>
+              </div>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="provider-meta">
+              <span class="rating-stars">★★★★★ <strong>4.9</strong></span>
+              <span>2.0 km away</span>
+              <span>Starts at &#8377;399</span>
+            </div>
+            <div class="provider-actions">
+              <a href="workers.html">View Profile</a>
+              <button type="button" data-provider-book="Cleaning">Book Now</button>
+            </div>
+          </article>
+
+          <article class="provider-card">
+            <img src="assets/worker-neha.svg" alt="Neha Singh painter" width="96" height="96" loading="lazy" />
+            <div class="provider-info">
+              <div>
+                <h3>Neha Singh</h3>
+                <p>Painter</p>
+              </div>
+              <span class="availability busy">Busy</span>
+            </div>
+            <div class="provider-meta">
+              <span class="rating-stars">★★★★★ <strong>4.8</strong></span>
+              <span>3.6 km away</span>
+              <span>Starts at &#8377;999</span>
+            </div>
+            <div class="provider-actions">
+              <a href="workers.html">View Profile</a>
+              <button type="button" data-provider-book="Painter">Book Now</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="popular-section" id="popular">
+        <div class="section-heading">
+          <p class="eyebrow">Most booked</p>
+          <h2>Popular services this week</h2>
+        </div>
+
+        <div class="popular-list">
+          <article class="popular-item">
+            <div>
+              <h3>Bathroom deep cleaning</h3>
+              <p>Complete tile, fixture, and floor cleaning.</p>
+            </div>
+            <div class="popular-action">
+              <span>From ₹399</span>
+              <a href="booking.html?service=Cleaning">Book</a>
+            </div>
+          </article>
+          <article class="popular-item">
+            <div>
+              <h3>AC general service</h3>
+              <p>Filter cleaning, gas check, and performance test.</p>
+            </div>
+            <div class="popular-action">
+              <span>From ₹499</span>
+              <a href="booking.html?service=AC+Repair">Book</a>
+            </div>
+          </article>
+          <article class="popular-item">
+            <div>
+              <h3>Tap and sink repair</h3>
+              <p>Quick fixes for leaks, clogs, and fittings.</p>
+            </div>
+            <div class="popular-action">
+              <span>From ₹299</span>
+              <a href="booking.html?service=Plumber">Book</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section steps-section" id="how-it-works">
+        <div class="section-heading">
+          <p class="eyebrow">Simple booking</p>
+          <h2>How it works</h2>
+        </div>
+
+        <div class="steps-grid">
+          <article class="step-card">
+            <span>01</span>
+            <h3>Choose a service</h3>
+            <p>Search or browse the category you need and pick a time that fits.</p>
+          </article>
+          <article class="step-card">
+            <span>02</span>
+            <h3>Get matched</h3>
+            <p>We assign a verified professional with the right skills and ratings.</p>
+          </article>
+          <article class="step-card">
+            <span>03</span>
+            <h3>Relax at home</h3>
+            <p>Track arrival, approve the quote, and pay securely after the job.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="reviews-section" id="reviews">
+        <div class="section-heading">
+          <p class="eyebrow">Customer reviews</p>
+          <h2>Trusted by busy households</h2>
+        </div>
+
+        <button class="write-review-button" id="writeReviewButton" type="button">Write a Review</button>
+
+        <form class="review-form is-hidden" id="reviewForm">
+          <div class="review-form-grid">
+            <div class="field-group">
+              <label for="reviewName">Customer Name</label>
+              <input id="reviewName" type="text" placeholder="Your name" required />
+            </div>
+            <div class="field-group">
+              <label for="reviewService">Service Used</label>
+              <select id="reviewService" required>
+                <option value="">Choose service</option>
+                <option>Plumber</option>
+                <option>Electrician</option>
+                <option>Carpenter</option>
+                <option>Painter</option>
+                <option>AC Repair</option>
+                <option>Cleaning</option>
+                <option>Appliance Repair</option>
+                <option>Home Maintenance</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="reviewRating">Rating</label>
+              <select id="reviewRating" required>
+                <option value="">1-5 stars</option>
+                <option value="5">5 stars</option>
+                <option value="4">4 stars</option>
+                <option value="3">3 stars</option>
+                <option value="2">2 stars</option>
+                <option value="1">1 star</option>
+              </select>
+            </div>
+            <div class="field-group full">
+              <label for="reviewText">Review Text</label>
+              <textarea id="reviewText" rows="4" placeholder="Share your experience" required></textarea>
+            </div>
+          </div>
+          <button type="submit">Submit Review</button>
+          <p class="review-message" id="reviewMessage" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="reviews-grid" id="reviewsGrid">
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <a class="logo footer-logo" href="index.html">
+          <span class="logo-mark">HF</span>
+          <span>HomeFix</span>
+        </a>
+        <p>Fast, verified home services for modern households.</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="booking.html">Booking</a>
+        <a href="workers.html">Workers</a>
+        <a href="profile.html">Profile</a>
+      </div>
+    </footer>
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script src="nav.js"></script>
+
+
+    <script src="script.js"></script>
+  </body>
+</html>
