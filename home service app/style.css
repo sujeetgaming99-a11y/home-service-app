@@ -569,6 +569,120 @@ textarea {
   margin: 6px 0 0;
 }
 
+.nearby-section {
+  padding-top: 54px;
+}
+
+.provider-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.provider-card {
+  padding: 16px;
+  display: grid;
+  gap: 14px;
+  background: #fff;
+  border: 1px solid rgba(15, 118, 110, 0.12);
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(28, 43, 54, 0.08);
+}
+
+.provider-card img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border: 1px solid rgba(15, 118, 110, 0.14);
+  border-radius: 18px;
+  background: #ecf8f3;
+  box-shadow: 0 10px 22px rgba(28, 43, 54, 0.08);
+}
+
+.provider-info {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.provider-info h3,
+.provider-info p,
+.provider-meta {
+  margin: 0;
+}
+
+.provider-info h3 {
+  font-size: 1.08rem;
+}
+
+.provider-info p,
+.provider-meta {
+  color: var(--muted);
+  font-weight: 750;
+}
+
+.availability {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 900;
+}
+
+.availability.available {
+  color: var(--teal-dark);
+  background: #e9fbf5;
+}
+
+.availability.busy {
+  color: #9a4b16;
+  background: #fff2df;
+}
+
+.provider-meta {
+  display: grid;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+.rating-stars {
+  color: #d99b2b;
+}
+
+.rating-stars strong {
+  color: var(--ink);
+}
+
+.provider-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.provider-actions a,
+.provider-actions button {
+  min-height: 44px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.provider-actions a {
+  color: var(--teal-dark);
+  background: #f0fbf8;
+  border: 1px solid rgba(15, 118, 110, 0.18);
+}
+
+.provider-actions button {
+  border: 0;
+  color: #fff;
+  background: var(--teal);
+  box-shadow: 0 12px 24px rgba(15, 118, 110, 0.16);
+}
+
 .upload-controls {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -876,6 +990,20 @@ textarea {
   .site-footer {
     align-items: flex-start;
     flex-direction: column;
+  }
+}
+
+@media (min-width: 700px) {
+  .provider-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (min-width: 1040px) {
+  .provider-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
   }
 }
 

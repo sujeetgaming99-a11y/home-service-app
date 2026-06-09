@@ -8,9 +8,6 @@ const bookingService = document.querySelector("#bookingService");
 const bookingLocation = document.querySelector("#bookingLocation");
 const bookingTime = document.querySelector("#bookingTime");
 const bookingMessage = document.querySelector("#bookingMessage");
-const confirmSlot = document.querySelector("#confirmSlot");
-const activeServiceTitle = document.querySelector("#activeServiceTitle");
-const activeServiceMeta = document.querySelector("#activeServiceMeta");
 const writeReviewButton = document.querySelector("#writeReviewButton");
 const reviewForm = document.querySelector("#reviewForm");
 const reviewsGrid = document.querySelector("#reviewsGrid");
@@ -18,6 +15,7 @@ const reviewMessage = document.querySelector("#reviewMessage");
 const servicePhotoService = document.querySelector("#servicePhotoService");
 const servicePhotoUpload = document.querySelector("#servicePhotoUpload");
 const servicePhotoPreview = document.querySelector("#servicePhotoPreview");
+const providerBookButtons = document.querySelectorAll("[data-provider-book]");
 
 const services = ["Plumber", "Electrician", "Carpenter", "Painter", "AC Repair", "Cleaning", "Appliance Repair", "Home Maintenance"];
 const sampleReviews = [
@@ -57,41 +55,6 @@ const sampleReviews = [
     date: "Sample review",
   },
 ];
-const serviceDetails = {
-  Plumber: {
-    title: "Pipe leak repair",
-    meta: "Available by 11:30 AM",
-  },
-  Electrician: {
-    title: "Switchboard repair",
-    meta: "Available by 12:00 PM",
-  },
-  Carpenter: {
-    title: "Furniture fitting",
-    meta: "Available by 1:30 PM",
-  },
-  Painter: {
-    title: "Wall painting visit",
-    meta: "Available today evening",
-  },
-  "AC Repair": {
-    title: "AC cooling service",
-    meta: "Available in 30 minutes",
-  },
-  Cleaning: {
-    title: "Deep cleaning service",
-    meta: "Available today afternoon",
-  },
-  "Appliance Repair": {
-    title: "Appliance diagnosis",
-    meta: "Available today evening",
-  },
-  "Home Maintenance": {
-    title: "Home maintenance visit",
-    meta: "Available tomorrow morning",
-  },
-};
-
 function showToast(message, type = "success") {
   const container = document.querySelector("#toastContainer");
 
@@ -117,11 +80,6 @@ function selectService(service) {
 
   if (bookingMessage) {
     bookingMessage.textContent = "";
-  }
-
-  if (serviceDetails[service] && activeServiceTitle && activeServiceMeta) {
-    activeServiceTitle.textContent = serviceDetails[service].title;
-    activeServiceMeta.textContent = serviceDetails[service].meta;
   }
 
   categoryCards.forEach((card) => {
@@ -283,18 +241,6 @@ if (searchForm && searchInput) {
   });
 }
 
-if (confirmSlot && bookingForm && bookingService && bookingTime && bookingLocation) {
-  confirmSlot.addEventListener("click", () => {
-    if (!bookingService.value) {
-      selectService("Plumber");
-    }
-
-    bookingTime.value = "Next 30 minutes";
-    bookingForm.scrollIntoView({ behavior: "smooth", block: "center" });
-    bookingLocation.focus();
-  });
-}
-
 if (bookingForm && bookingService && bookingLocation && bookingTime) {
   bookingForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -314,6 +260,13 @@ if (bookingForm && bookingService && bookingLocation && bookingTime) {
     window.location.href = `booking.html?${params.toString()}`;
   });
 }
+
+providerBookButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const service = button.dataset.providerBook;
+    window.location.href = `booking.html?service=${encodeURIComponent(service)}`;
+  });
+});
 
 if (writeReviewButton && reviewForm) {
   writeReviewButton.addEventListener("click", () => {

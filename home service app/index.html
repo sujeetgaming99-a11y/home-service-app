@@ -115,25 +115,6 @@
             height="640"
             fetchpriority="high"
           />
-          <div class="status-card active">
-            <span class="status-icon tool-icon"></span>
-            <div>
-              <strong id="activeServiceTitle">Pipe leak repair</strong>
-              <p id="activeServiceMeta">Available by 11:30 AM</p>
-            </div>
-          </div>
-          <div class="status-card">
-            <span class="status-icon spark-icon"></span>
-            <div>
-              <strong>Switchboard check</strong>
-              <p>Top rated electrician nearby</p>
-            </div>
-          </div>
-          <div class="booking-card">
-            <span>Next expert arrives in</span>
-            <strong>28 minutes</strong>
-            <button type="button" id="confirmSlot">Confirm Slot</button>
-          </div>
         </div>
       </section>
 
@@ -207,6 +188,135 @@
             <input id="servicePhotoUpload" type="file" accept="image/*" />
           </div>
           <img class="upload-preview is-hidden" id="servicePhotoPreview" alt="Service upload preview" />
+        </div>
+      </section>
+
+      <section class="section nearby-section" id="nearby-providers">
+        <div class="section-heading">
+          <p class="eyebrow">Nearby experts</p>
+          <h2>Nearby Service Providers</h2>
+        </div>
+
+        <div class="provider-grid">
+          <article class="provider-card">
+            <img src="assets/worker-rahul.svg" alt="Rahul Sharma plumber" width="96" height="96" loading="lazy" />
+            <div class="provider-info">
+              <div>
+                <h3>Rahul Sharma</h3>
+                <p>Plumber</p>
+              </div>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="provider-meta">
+              <span class="rating-stars">★★★★★ <strong>4.9</strong></span>
+              <span>1.2 km away</span>
+              <span>Starts at &#8377;299</span>
+            </div>
+            <div class="provider-actions">
+              <a href="workers.html">View Profile</a>
+              <button type="button" data-provider-book="Plumber">Book Now</button>
+            </div>
+          </article>
+
+          <article class="provider-card">
+            <img src="assets/worker-amit.svg" alt="Amit Verma electrician" width="96" height="96" loading="lazy" />
+            <div class="provider-info">
+              <div>
+                <h3>Amit Verma</h3>
+                <p>Electrician</p>
+              </div>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="provider-meta">
+              <span class="rating-stars">★★★★★ <strong>4.8</strong></span>
+              <span>1.8 km away</span>
+              <span>Starts at &#8377;299</span>
+            </div>
+            <div class="provider-actions">
+              <a href="workers.html">View Profile</a>
+              <button type="button" data-provider-book="Electrician">Book Now</button>
+            </div>
+          </article>
+
+          <article class="provider-card">
+            <img src="assets/worker-karan.svg" alt="Karan Mehta carpenter" width="96" height="96" loading="lazy" />
+            <div class="provider-info">
+              <div>
+                <h3>Karan Mehta</h3>
+                <p>Carpenter</p>
+              </div>
+              <span class="availability busy">Busy</span>
+            </div>
+            <div class="provider-meta">
+              <span class="rating-stars">★★★★☆ <strong>4.7</strong></span>
+              <span>2.4 km away</span>
+              <span>Starts at &#8377;399</span>
+            </div>
+            <div class="provider-actions">
+              <a href="workers.html">View Profile</a>
+              <button type="button" data-provider-book="Carpenter">Book Now</button>
+            </div>
+          </article>
+
+          <article class="provider-card">
+            <img src="assets/worker-sameer.svg" alt="Sameer Khan AC technician" width="96" height="96" loading="lazy" />
+            <div class="provider-info">
+              <div>
+                <h3>Sameer Khan</h3>
+                <p>AC Technician</p>
+              </div>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="provider-meta">
+              <span class="rating-stars">★★★★★ <strong>4.9</strong></span>
+              <span>3.1 km away</span>
+              <span>Starts at &#8377;499</span>
+            </div>
+            <div class="provider-actions">
+              <a href="workers.html">View Profile</a>
+              <button type="button" data-provider-book="AC Repair">Book Now</button>
+            </div>
+          </article>
+
+          <article class="provider-card">
+            <img src="assets/worker-priya.svg" alt="Priya Nair cleaning specialist" width="96" height="96" loading="lazy" />
+            <div class="provider-info">
+              <div>
+                <h3>Priya Nair</h3>
+                <p>Cleaning Specialist</p>
+              </div>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="provider-meta">
+              <span class="rating-stars">★★★★★ <strong>4.9</strong></span>
+              <span>2.0 km away</span>
+              <span>Starts at &#8377;399</span>
+            </div>
+            <div class="provider-actions">
+              <a href="workers.html">View Profile</a>
+              <button type="button" data-provider-book="Cleaning">Book Now</button>
+            </div>
+          </article>
+
+          <article class="provider-card">
+            <img src="assets/worker-neha.svg" alt="Neha Singh painter" width="96" height="96" loading="lazy" />
+            <div class="provider-info">
+              <div>
+                <h3>Neha Singh</h3>
+                <p>Painter</p>
+              </div>
+              <span class="availability busy">Busy</span>
+            </div>
+            <div class="provider-meta">
+              <span class="rating-stars">★★★★★ <strong>4.8</strong></span>
+              <span>3.6 km away</span>
+              <span>Starts at &#8377;999</span>
+            </div>
+            <div class="provider-actions">
+              <a href="workers.html">View Profile</a>
+              <button type="button" data-provider-book="Painter">Book Now</button>
+            </div>
+          </article>
         </div>
       </section>
 

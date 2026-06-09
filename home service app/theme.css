@@ -767,3 +767,318 @@ textarea {
     border-bottom-color: transparent;
   }
 }
+
+@media (max-width: 768px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  img,
+  svg,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .navbar,
+  .booking-nav,
+  .workers-nav,
+  .profile-nav,
+  .track-nav,
+  .support-nav,
+  .admin-nav,
+  .app-nav {
+    width: min(100% - 24px, 1180px);
+    min-height: 54px;
+    padding-block: 6px;
+  }
+
+  .menu-toggle {
+    width: 38px;
+    height: 38px;
+    padding: 8px;
+  }
+
+  .hero,
+  .section,
+  .reviews-section,
+  .booking-page,
+  .workers-page,
+  .profile-page,
+  .track-page,
+  .support-page,
+  .admin-page,
+  .notifications-page,
+  .payment-page,
+  .worker-dashboard-page {
+    width: min(100% - 24px, 1180px);
+  }
+
+  .hero {
+    min-height: auto;
+    padding-top: 28px;
+    padding-bottom: 28px;
+    gap: 22px;
+    grid-template-columns: 1fr !important;
+  }
+
+  .hero-content {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .hero-panel,
+  .booking-preview,
+  .hero-preview,
+  .right-card,
+  .expert-card {
+    display: none !important;
+  }
+
+  .hero-content h1,
+  .booking-intro h1,
+  .workers-intro h1,
+  .page-intro h1,
+  .dashboard-intro h1 {
+    font-size: clamp(2rem, 9vw, 2.75rem);
+    line-height: 1.04;
+  }
+
+  .hero-copy,
+  .booking-intro p:not(.eyebrow),
+  .workers-intro p:not(.eyebrow),
+  .page-intro p:not(.eyebrow),
+  .dashboard-intro p:not(.eyebrow) {
+    font-size: 0.98rem;
+  }
+
+  .search-bar {
+    width: 100%;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .search-bar input {
+    min-height: 48px;
+    padding: 0 14px;
+  }
+
+  .search-bar button,
+  .booking-form > button,
+  .confirm-button,
+  .support-form button,
+  .profile-form button,
+  .address-form button,
+  .worker-form button,
+  .auth-button,
+  .pay-button,
+  .call-button,
+  .cancel-button,
+  .next-status-button,
+  .review-form > button {
+    width: 100%;
+    min-height: 48px;
+  }
+
+  .booking-form,
+  .form-grid,
+  .booking-layout,
+  .profile-grid,
+  .track-layout,
+  .support-layout,
+  .worker-selector-panel,
+  .job-grid,
+  .stats-grid,
+  .worker-form,
+  .worker-list,
+  .service-upload-list {
+    grid-template-columns: 1fr;
+  }
+
+  .hero .booking-form {
+    width: 100%;
+    margin-top: 12px;
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .service-grid,
+  .category-grid.service-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .service-card,
+  .category-card.service-card {
+    min-height: 0;
+    padding: 12px;
+  }
+
+  .service-card img,
+  .category-card.service-card img,
+  .service-card .service-image {
+    height: 90px;
+    object-fit: contain;
+  }
+
+  .hero-panel {
+    padding: 10px;
+    border-radius: 16px;
+  }
+
+  .hero-image {
+    max-height: 260px;
+    border-radius: 14px;
+    object-fit: cover;
+  }
+
+  .booking-page,
+  .workers-page,
+  .profile-page,
+  .track-page,
+  .support-page,
+  .admin-page,
+  .notifications-page,
+  .payment-page,
+  .worker-dashboard-page {
+    padding-top: 30px;
+    padding-bottom: 88px;
+  }
+
+  .booking-form,
+  .summary-panel,
+  .profile-card,
+  .panel,
+  .tracking-card,
+  .support-panel,
+  .faq-panel,
+  .admin-panel,
+  .stat-card,
+  .worker-selector-panel,
+  .job-section,
+  .job-card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .table-wrap {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .bookings-table {
+    max-width: 100%;
+  }
+
+  .summary-actions,
+  .time-editor,
+  .payment-method-form,
+  .address-card,
+  .notification-row,
+  .job-actions,
+  .status-actions,
+  .action-row {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .toast-container {
+    right: 12px;
+    bottom: 78px;
+    left: 12px;
+  }
+
+  .toast {
+    max-width: none;
+  }
+}
+
+@media (max-width: 430px) {
+  .navbar,
+  .booking-nav,
+  .workers-nav,
+  .profile-nav,
+  .track-nav,
+  .support-nav,
+  .admin-nav,
+  .app-nav,
+  .hero,
+  .section,
+  .reviews-section,
+  .booking-page,
+  .workers-page,
+  .profile-page,
+  .track-page,
+  .support-page,
+  .admin-page,
+  .notifications-page,
+  .payment-page,
+  .worker-dashboard-page {
+    width: min(100% - 20px, 1180px);
+  }
+
+  .hero-content h1,
+  .booking-intro h1,
+  .workers-intro h1,
+  .page-intro h1,
+  .dashboard-intro h1 {
+    font-size: clamp(1.9rem, 10vw, 2.35rem);
+  }
+
+  .hero {
+    padding-top: 22px;
+    padding-bottom: 22px;
+  }
+
+  .service-grid,
+  .category-grid.service-grid {
+    gap: 10px;
+  }
+
+  .service-card,
+  .category-card.service-card {
+    padding: 10px;
+    border-radius: 14px;
+  }
+
+  .service-card img,
+  .category-card.service-card img,
+  .service-card .service-image {
+    height: 82px;
+  }
+
+  .service-card h3,
+  .service-card strong,
+  .category-card.service-card strong {
+    font-size: 14px;
+  }
+
+  .service-card p,
+  .service-card small,
+  .category-card.service-card small {
+    font-size: 12px;
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 340px) {
+  .footer-links a,
+  .app-footer nav a,
+  .auth-footer > a {
+    font-size: 11px;
+  }
+
+  .service-card h3,
+  .service-card strong,
+  .category-card.service-card strong {
+    font-size: 13px;
+  }
+}

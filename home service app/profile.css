@@ -580,3 +580,70 @@ select {
     flex-direction: column;
   }
 }
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 640px;
+  width: 100%;
+}
+
+.search-bar input {
+  flex: 1;
+  min-width: 0;
+  padding: 16px 18px;
+  border-radius: 14px;
+}
+
+.search-bar button {
+  padding: 16px 26px;
+  border-radius: 14px;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 24px 18px !important;
+    gap: 24px !important;
+  }
+
+  .hero-content,
+  .hero-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .hero h1 {
+    font-size: 44px !important;
+    line-height: 1.05 !important;
+  }
+
+  .search-bar {
+    flex-direction: row !important;
+    gap: 8px !important;
+  }
+
+  .search-bar input {
+    font-size: 15px !important;
+    padding: 14px !important;
+  }
+
+  .search-bar button {
+    padding: 14px 18px !important;
+    white-space: nowrap !important;
+  }
+
+  .booking-form {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  .stats-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+}
