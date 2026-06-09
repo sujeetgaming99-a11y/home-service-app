@@ -514,7 +514,7 @@ textarea {
 }
 
 .category-card {
-  min-height: 250px;
+  min-height: auto;
   padding: 12px;
   display: grid;
   grid-template-rows: auto auto auto;
@@ -570,7 +570,7 @@ textarea {
 }
 
 .nearby-section {
-  padding-top: 54px;
+  padding-top: 12px;
 }
 
 .provider-grid {
@@ -1120,3 +1120,278 @@ textarea {
 .hero {
   grid-template-columns: 1fr 1.15fr;
 }
+
+/* Mobile UI Fix */
+
+.worker-avatar{
+  width:64px;
+  height:64px;
+  border-radius:50%;
+}
+
+.worker-card button{
+  min-height:44px;
+  border-radius:14px;
+  font-weight:600;
+}
+
+.workers-container{
+  padding-bottom:90px;
+}
+
+.bottom-nav{
+  height:70px;
+  padding-bottom:10px;
+}
+
+.bottom-nav a{
+  font-size:13px;
+}
+
+/* MOBILE BOTTOM NAV FIX */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background: #ffffff;
+  z-index: 1000;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Page content navbar ke niche na chhupe */
+body {
+  padding-bottom: 80px;
+}
+
+/* Worker list ke liye extra space */
+.worker-list,
+.workers-container,
+.page-content,
+.main-content {
+  padding-bottom: 100px !important;
+}
+
+/* Bottom nav text */
+.bottom-nav a {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* MOBILE COMPACT FIX */
+@media (max-width: 480px) {
+  body {
+    padding-bottom: 75px;
+  }
+
+  section {
+    padding: 22px 14px !important;
+    margin: 0 !important;
+  }
+
+  .container {
+    padding: 0 12px !important;
+  }
+
+  .worker-section,
+  .reviews-section,
+  .how-it-works,
+  .popular-services,
+  .most-booked {
+    padding-top: 22px !important;
+    padding-bottom: 22px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .worker-card,
+  .review-card,
+  .step-card,
+  .service-card {
+    padding: 14px !important;
+    margin-bottom: 12px !important;
+    min-height: auto !important;
+  }
+
+  .worker-card {
+    gap: 10px !important;
+  }
+
+  .worker-card img,
+  .worker-avatar {
+    width: 58px !important;
+    height: 58px !important;
+  }
+
+  .worker-card h3 {
+    font-size: 17px !important;
+    margin-bottom: 2px !important;
+  }
+
+  .worker-card p,
+  .review-card p,
+  .step-card p,
+  .service-card p {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+    margin-bottom: 6px !important;
+  }
+
+  .reviews-section h2,
+  .how-it-works h2,
+  .popular-services h2,
+  .most-booked h2 {
+    font-size: 28px !important;
+    line-height: 1.1 !important;
+    margin-bottom: 16px !important;
+  }
+
+  .review-card {
+    min-height: auto !important;
+  }
+
+  .step-card {
+    min-height: auto !important;
+  }
+
+  .step-card .step-number,
+  .step-number {
+    margin-bottom: 8px !important;
+  }
+
+  .service-card {
+    min-height: auto !important;
+  }
+
+  .service-card .btn,
+  .service-card button,
+  .book-btn {
+    height: 42px !important;
+    padding: 10px 14px !important;
+    font-size: 14px !important;
+  }
+
+  .popular-services {
+    border-radius: 18px !important;
+  }
+
+  .popular-services .service-card,
+  .most-booked .service-card {
+    padding: 14px !important;
+  }
+
+  .bottom-nav {
+    height: 64px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-bottom: 65px !important;
+  }
+
+  section,
+  .section,
+  .home-section,
+  .workers,
+  .reviews,
+  .how-it-works,
+  .most-booked,
+  .popular-services {
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    min-height: auto !important;
+    height: auto !important;
+  }
+
+  .worker-card,
+  .review-card,
+  .step-card,
+  .service-card,
+  .popular-card,
+  .booking-card,
+  .card {
+    min-height: auto !important;
+    height: auto !important;
+    padding: 12px !important;
+    margin-bottom: 10px !important;
+  }
+
+  h1 { font-size: 30px !important; }
+  h2 { font-size: 26px !important; margin-bottom: 12px !important; }
+
+  p {
+    font-size: 13px !important;
+    line-height: 1.35 !important;
+    margin-bottom: 6px !important;
+  }
+
+  button,
+  .btn,
+  .book-btn {
+    min-height: 40px !important;
+    height: 40px !important;
+    padding: 8px 12px !important;
+    font-size: 14px !important;
+  }
+
+  .bottom-nav {
+    height: 62px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .service-card {
+    min-height: auto !important;
+    padding: 12px !important;
+  }
+
+  .service-image,
+  .service-card img {
+    height: 120px !important;
+  }
+
+  .review-card,
+  .step-card {
+    min-height: auto !important;
+    padding: 12px !important;
+  }
+}
+
+/* FINAL GAP FIX */
+
+#services {
+  padding-bottom: 10px !important;
+  margin-bottom: 0 !important;
+}
+
+#nearby-providers {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+.nearby-section {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+.section-heading {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.provider-grid {
+  margin-top: 14px !important;
+}
+
+#services{
+  padding-bottom:0 !important;
+}
+
+.category-grid{
+  margin-bottom:0 !important;
+}
+

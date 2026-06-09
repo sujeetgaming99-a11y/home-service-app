@@ -508,3 +508,171 @@ select {
     flex-direction: column;
   }
 }
+
+/* FINAL MOBILE WORKERS PAGE FIX */
+
+body {
+  padding-bottom: 110px !important;
+  overflow-x: hidden;
+}
+
+.workers-page,
+.workers-container,
+.worker-list,
+.main-content,
+.page-content,
+.container {
+  padding-bottom: 130px !important;
+}
+
+.bottom-nav,
+.bottom-navigation,
+.mobile-nav,
+.navbar-bottom {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 72px !important;
+  background: #ffffff !important;
+  z-index: 99999 !important;
+  border-top: 1px solid #e5e7eb !important;
+}
+
+@media (max-width: 480px) {
+  .worker-card {
+    margin-bottom: 18px !important;
+  }
+
+  .bottom-nav a,
+  .bottom-navigation a,
+  .mobile-nav a,
+  .navbar-bottom a {
+    font-size: 12px !important;
+  }
+}
+
+/* Remove large empty space */
+
+.customize-section {
+  margin-bottom: 20px !important;
+}
+
+.nearby-experts,
+.providers-section,
+.service-providers {
+  margin-top: 20px !important;
+}
+
+.upload-section {
+  padding-bottom: 10px !important;
+}
+
+/* Agar koi empty div space le raha hai */
+.spacer,
+.empty-space {
+  display: none !important;
+}
+
+/* GAP FIX BETWEEN UPLOAD AND PROVIDERS */
+
+.customize-card,
+.upload-card,
+.upload-section,
+.photo-upload-section {
+  margin-bottom: 16px !important;
+  padding-bottom: 18px !important;
+}
+
+.nearby-experts,
+.providers-section,
+.service-providers,
+.workers-section {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.upload-preview,
+.preview-box,
+.image-preview,
+.photo-preview {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Hide Upload Service Photo section */
+
+.customize-section,
+.customize-card,
+.upload-section,
+.upload-card,
+.photo-upload-section {
+  display: none !important;
+}
+
+.worker-section {
+  margin-bottom: 0 !important;
+  padding-bottom: 10px !important;
+}
+
+.most-booked {
+  margin-top: 0 !important;
+  padding-top: 10px !important;
+}
+
+/* Extra blank space remove */
+.worker-grid,
+.worker-list {
+  margin-bottom: 0 !important;
+}
+
+section {
+  margin-bottom: 0 !important;
+}
+
+/* WORKER CARD MOBILE FIX */
+@media (max-width: 480px) {
+  .workers-page,
+  .worker-section,
+  .providers-section {
+    padding: 16px 12px 90px !important;
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+  }
+
+  .worker-grid,
+  .worker-list,
+  .providers-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 18px !important;
+    height: auto !important;
+  }
+
+  .worker-card,
+  .provider-card {
+    height: auto !important;
+    min-height: 260px !important;
+    overflow: visible !important;
+    margin-bottom: 0 !important;
+    padding: 18px !important;
+  }
+
+  .worker-card .actions,
+  .provider-card .actions,
+  .card-actions {
+    display: flex !important;
+    gap: 10px !important;
+    margin-top: 18px !important;
+  }
+
+  .worker-card button,
+  .provider-card button {
+    position: static !important;
+    width: 100% !important;
+  }
+}
